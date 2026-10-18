@@ -1,0 +1,219 @@
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found PkgConfig: /usr/bin/pkg-config (found version "1.8.1")
+-- Checking for module 'alsa'
+--   Found alsa, version 1.2.11
+-- Checking for modules 'freetype2;fontconfig'
+--   Found freetype2, version 26.1.20
+--   Found fontconfig, version 2.15.0
+-- Checking for module 'gl'
+--   Found gl, version 1.2
+-- Checking for module 'libcurl'
+--   Package 'libcurl', required by 'virtual:world', not found
+-- Checking for modules 'webkit2gtk-4.0;gtk+-x11-3.0'
+--   Package 'webkit2gtk-4.0', required by 'virtual:world', not found
+--   Package 'gtk+-x11-3.0', required by 'virtual:world', not found
+-- Configuring juceaide
+-- Building juceaide
+-- Exporting juceaide
+-- Testing juceaide
+-- Finished setting up juceaide
+-- Configuring done (56.8s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/runner/work/Clawpressor-vst/Clawpressor-vst/build
+[  1%] Building VST3 manifest helper for Clawpressor
+[  3%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/src/CatLookAndFeel.cpp.o
+[  5%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/src/CatFrame.cpp.o
+[  6%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_gui_basics/juce_gui_basics.cpp.o
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/vst3_helpers/Clawpressor
+gmake[3]: warning: jobserver unavailable: using -j1.  Add '+' to parent make rule.
+[ 50%] Building CXX object CMakeFiles/vst3_helper.dir/home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_audio_plugin_client/VST3/juce_VST3ManifestHelper.cpp.o
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+[100%] Linking CXX executable vst3_helper
+[100%] Built target vst3_helper
+[  6%] Built target Clawpressor_vst3_helper
+[  8%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_gui_basics/juce_gui_basics_2.cpp.o
+[ 10%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_gui_basics/juce_gui_basics_3.cpp.o
+[ 11%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_gui_basics/juce_gui_basics_4.cpp.o
+[ 13%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_gui_basics/juce_gui_basics_5.cpp.o
+[ 15%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_graphics/juce_graphics.cpp.o
+[ 16%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.o
+[ 18%] Building C object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.o
+[ 20%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_events/juce_events.cpp.o
+[ 22%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_core/juce_core.cpp.o
+[ 23%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.o
+[ 25%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_data_structures/juce_data_structures.cpp.o
+[ 27%] Linking CXX static library libcat_ui.a
+[ 27%] Built target cat_ui
+[ 28%] Building CXX object CMakeFiles/Clawpressor.dir/src/PluginProcessor.cpp.o
+[ 30%] Building CXX object CMakeFiles/Clawpressor.dir/src/PluginEditor.cpp.o
+[ 32%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.cpp.o
+[ 33%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.cpp.o
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.h:145,
+                 from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.h:64,
+                 from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.h:2,
+                 from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginEditor.h:2,
+                 from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginEditor.cpp:1:
+/home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_audio_processors_headless/processors/juce_AudioProcessor.h:292:18: warning: ‘virtual void juce::AudioProcessor::processBlock(juce::AudioBuffer<double>&, juce::MidiBuffer&)’ was hidden [-Woverloaded-virtual=]
+  292 |     virtual void processBlock (AudioBuffer<double>& buffer,
+      |                  ^~~~~~~~~~~~
+/home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.h:13:10: note:   by ‘virtual void ClawpressorProcessor::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&)’
+   13 |     void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
+      |          ^~~~~~~~~~~~
+In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.h:145,
+                 from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.h:64,
+                 from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.h:2,
+                 from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.cpp:1:
+/home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_audio_processors_headless/processors/juce_AudioProcessor.h:292:18: warning: ‘virtual void juce::AudioProcessor::processBlock(juce::AudioBuffer<double>&, juce::MidiBuffer&)’ was hidden [-Woverloaded-virtual=]
+  292 |     virtual void processBlock (AudioBuffer<double>& buffer,
+      |                  ^~~~~~~~~~~~
+/home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.h:13:10: note:   by ‘virtual void ClawpressorProcessor::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&)’
+   13 |     void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
+      |          ^~~~~~~~~~~~
+[ 35%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.cpp.o
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+[ 37%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics_2.cpp.o
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+[ 38%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics_3.cpp.o
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+[ 40%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics_4.cpp.o
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+[ 42%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics_5.cpp.o
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+[ 44%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_graphics/juce_graphics.cpp.o
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+[ 45%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.o
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+[ 47%] Building C object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.o
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+[ 49%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_events/juce_events.cpp.o
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+[ 50%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_core/juce_core.cpp.o
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+[ 52%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.o
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+[ 54%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_data_structures/juce_data_structures.cpp.o
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+[ 55%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.cpp.o
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+[ 57%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.o
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+[ 59%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.o
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+[ 61%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_audio_basics/juce_audio_basics.cpp.o
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+[ 62%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_audio_utils/juce_audio_utils.cpp.o
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+[ 64%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_audio_formats/juce_audio_formats.cpp.o
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+[ 66%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_audio_devices/juce_audio_devices.cpp.o
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+[ 67%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.cpp.o
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+[ 69%] Linking CXX static library Clawpressor_artefacts/Release/libClawpressor_SharedCode.a
+[ 69%] Built target Clawpressor
+[ 71%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.cpp.o
+[ 74%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
+[ 74%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.cpp.o
+[ 76%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+<command-line>: note: this is the location of the previous definition
+<command-line>: note: this is the location of the previous definition
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+[ 83%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
+[ 83%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
+[ 83%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
+[ 83%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+<command-line>: note: this is the location of the previous definition
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+[ 84%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
+[ 86%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
+[ 89%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
+[ 89%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+<command-line>: note: this is the location of the previous definition
+<command-line>: note: this is the location of the previous definition
+[ 93%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
+[ 93%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
+[ 94%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+[ 96%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
+<command-line>: warning: "JUCE_STANDALONE_APPLICATION" redefined
+<command-line>: note: this is the location of the previous definition
+[ 98%] Linking CXX executable Clawpressor_artefacts/Release/Standalone/Clawpressor
+[ 98%] Built target Clawpressor_Standalone
+[100%] Linking CXX shared module Clawpressor_artefacts/Release/VST3/Clawpressor.vst3/Contents/x86_64-linux/Clawpressor.so
+/usr/bin/ld: _deps/cat_ui-build/libcat_ui.a(CatLookAndFeel.cpp.o): warning: relocation against `_ZTVN5catui14CatLookAndFeelE' in read-only section `.text._ZN5catui14CatLookAndFeelD0Ev[_ZN5catui14CatLookAndFeelD5Ev]'
+/usr/bin/ld: _deps/cat_ui-build/libcat_ui.a(CatLookAndFeel.cpp.o): relocation R_X86_64_PC32 against symbol `_ZTVN5catui14CatLookAndFeelE' can not be used when making a shared object; recompile with -fPIC
+/usr/bin/ld: final link failed: bad value
+collect2: error: ld returned 1 exit status
+gmake[2]: *** [CMakeFiles/Clawpressor_VST3.dir/build.make:218: Clawpressor_artefacts/Release/VST3/Clawpressor.vst3/Contents/x86_64-linux/Clawpressor.so] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:302: CMakeFiles/Clawpressor_VST3.dir/all] Error 2
+gmake: *** [Makefile:136: all] Error 2
