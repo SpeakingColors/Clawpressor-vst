@@ -18,4 +18,5 @@ Multiband compressor and limiter. The same engine will also power the Dance MB s
 - Settings page with MIDI filters on by default, selectable preset/backup folders, UI size reset to 100%
 
 - [x] Interactive mockup page (docs/mockup/clawpressor.html)
-- [ ] JUCE scaffold on cat-ui (processor, 4-band crossover, editor)
+- [x] JUCE scaffold on cat-ui builds in CI (Linux VST3 + standalone)
+- [ ] Real editor from the mockup (spectrum, curves, pattern editor), phase-aligned crossover, pattern gain, lookahead
