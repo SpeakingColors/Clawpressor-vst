@@ -2,17 +2,26 @@
 #include <juce_dsp/juce_dsp.h>
 #include <array>
 #include <cmath>
+#include <vector>
 
-// Per band compressor: soft knee, peak detector with attack and release, makeup boost.
+// Per band compressor: soft knee, peak detector with attack and release, boost.
+// Lookahead: the detector sees the signal now, the audio is delayed by lookSamples.
 struct BandComp
 {
     float thresholdDb = -20.f, ratio = 4.f, kneeDb = 6.f, attackMs = 5.f, releaseMs = 80.f, boostDb = 0.f;
     bool on = true;
-    float grDb = 0.f; // last gain reduction in dB (positive number), for meters
+    float grDb = 0.f;     // gain reduction in dB (positive), for meters
+    float levelDb = -100.f; // band input level in dB, for meters
 
-    void prepare(double sr) { fs = sr; env = 0.f; }
+    static constexpr int kMaxLook = 2048;
 
-    // static curve: input level in dB -> output level in dB (same shape as the mockup)
+    void prepare(double sr)
+    {
+        fs = (float) sr; env = 0.f; pos = 0;
+        for (auto& r : ring) r.assign((size_t) kMaxLook, 0.f);
+    }
+
+    // static curve: input dB -> output dB (same shape as the mockup)
     float curve(float inDb) const
     {
         const float d = inDb - thresholdDb;
@@ -21,24 +30,61 @@ struct BandComp
         return thresholdDb + d / ratio;
     }
 
-    void process(juce::AudioBuffer<float>& b)
+    // in place; buf has at least 1 channel, up to 2
+    void process(float* const* ch, int numCh, int n, int lookSamples)
     {
-        const int n = b.getNumSamples(), ch = b.getNumChannels();
-        const float aA = std::exp(-1.f / (0.001f * attackMs * (float) fs + 1e-6f));
-        const float aR = std::exp(-1.f / (0.001f * releaseMs * (float) fs + 1e-6f));
+        lookSamples = juce::jlimit(0, kMaxLook - 1, lookSamples);
+        const float aA = std::exp(-1.f / (0.001f * attackMs * fs + 1e-6f));
+        const float aR = std::exp(-1.f / (0.001f * releaseMs * fs + 1e-6f));
         const float boost = juce::Decibels::decibelsToGain(boostDb);
+        float lvl = 0.f;
         for (int i = 0; i < n; ++i)
         {
             float peak = 0.f;
-            for (int c = 0; c < ch; ++c) peak = std::max(peak, std::abs(b.getReadPointer(c)[i]));
+            for (int c = 0; c < numCh; ++c) peak = std::max(peak, std::abs(ch[c][i]));
+            lvl = std::max(lvl, peak);
             const float inDb = juce::Decibels::gainToDecibels(peak, -100.f);
             const float want = on ? std::max(0.f, inDb - curve(inDb)) : 0.f;
             const float a = want > env ? aA : aR;
             env = a * env + (1.f - a) * want;
             const float g = juce::Decibels::decibelsToGain(-env) * (on ? boost : 1.f);
-            for (int c = 0; c < ch; ++c) b.getWritePointer(c)[i] *= g;
+            for (int c = 0; c < numCh; ++c)
+            {
+                auto& r = ring[(size_t) c];
+                r[(size_t) pos] = ch[c][i];
+                const int rd = (pos - lookSamples + kMaxLook) % kMaxLook;
+                ch[c][i] = r[(size_t) rd] * g;
+            }
+            pos = (pos + 1) % kMaxLook;
         }
         grDb = env;
+        levelDb = juce::Decibels::gainToDecibels(lvl, -100.f);
     }
+
     float fs = 44100.f, env = 0.f;
+    int pos = 0;
+    std::array<std::vector<float>, 2> ring;
+};
+
+// Plain delay used to keep the dry path aligned with the lookahead.
+struct DryDelay
+{
+    static constexpr int kMax = BandComp::kMaxLook;
+    void prepare() { for (auto& r : ring) r.assign((size_t) kMax, 0.f); pos = 0; }
+    void process(float* const* ch, int numCh, int n, int d)
+    {
+        d = juce::jlimit(0, kMax - 1, d);
+        for (int i = 0; i < n; ++i)
+        {
+            for (int c = 0; c < numCh; ++c)
+            {
+                auto& r = ring[(size_t) c];
+                r[(size_t) pos] = ch[c][i];
+                ch[c][i] = r[(size_t) ((pos - d + kMax) % kMax)];
+            }
+            pos = (pos + 1) % kMax;
+        }
+    }
+    int pos = 0;
+    std::array<std::vector<float>, 2> ring;
 };

@@ -1,21 +1,196 @@
 #include "PluginEditor.h"
 
-ClawpressorEditor::ClawpressorEditor(ClawpressorProcessor& p) : AudioProcessorEditor(&p), proc(p)
+using namespace claw;
+
+void Knob::init(juce::Component& parent, juce::AudioProcessorValueTreeState& apvts, const juce::String& id,
+                const juce::String& name, const juce::String& suffix)
+{
+    s.setTextValueSuffix(suffix);
+    s.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 62, 15);
+    l.setText(name, juce::dontSendNotification);
+    l.setJustificationType(juce::Justification::centred);
+    l.setFont(juce::FontOptions(12.f));
+    parent.addAndMakeVisible(s); parent.addAndMakeVisible(l);
+    a = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(apvts, id, s);
+}
+void Knob::place(juce::Rectangle<int> r)
+{
+    l.setBounds(r.removeFromTop(14));
+    s.setBounds(r);
+}
+
+static float rawParam(ClawpressorProcessor& p, const juce::String& id) { return p.apvts.getRawParameterValue(id)->load(); }
+
+// ---------------- BandView
+float BandView::xForHz(float hz) const { return (float) getWidth() * std::log(hz / 20.f) / std::log(1000.f); }
+float BandView::hzForX(float x) const { return 20.f * std::pow(1000.f, x / (float) getWidth()); }
+
+void BandView::paint(juce::Graphics& g)
+{
+    g.fillAll(juce::Colour(0xff0e1213));
+    const float xo[3] = { rawParam(proc, "xo1"), rawParam(proc, "xo2"), rawParam(proc, "xo3") };
+    const float edges[5] = { 20.f, xo[0], xo[1], xo[2], 20000.f };
+    const float h = (float) getHeight();
+    g.setFont(juce::FontOptions(11.f));
+    for (float f : { 100.f, 1000.f, 10000.f })
+    {
+        g.setColour(juce::Colour(0xff223030)); g.drawVerticalLine((int) xForHz(f), 0.f, h);
+        g.setColour(juce::Colour(0xff6b8279)); g.drawText(f >= 1000.f ? juce::String((int) (f / 1000.f)) + "k" : juce::String((int) f), (int) xForHz(f) + 3, (int) h - 14, 40, 12, juce::Justification::left);
+    }
+    for (int b = 0; b < 4; ++b)
+    {
+        const float x0 = xForHz(edges[b]), x1 = xForHz(edges[b + 1]);
+        const float lv = proc.lvMeter[(size_t) b].load(), gr = proc.grMeter[(size_t) b].load();
+        const float top = juce::jmap(juce::jlimit(-70.f, 0.f, lv), -70.f, 0.f, h, 6.f);
+        const float topAfter = juce::jmap(juce::jlimit(-70.f, 0.f, lv - gr), -70.f, 0.f, h, 6.f);
+        const bool active = rawParam(proc, "b" + juce::String(b) + "_on") > .5f;
+        g.setColour(bandColour(b).withAlpha(0.2f)); g.fillRect(x0, top, x1 - x0, h - top);
+        g.setColour(bandColour(b).withAlpha(active ? 0.65f : 0.25f)); g.fillRect(x0, topAfter, x1 - x0, h - topAfter);
+        g.setColour(juce::Colours::white.withAlpha(0.9f));
+        g.drawText(juce::String("GR ") + juce::String(gr, 1) + " dB", (int) x0 + 4, 4, 100, 14, juce::Justification::left);
+    }
+    g.setColour(juce::Colours::white);
+    for (int i = 0; i < 3; ++i) g.fillRect(xForHz(xo[i]) - 1.f, 0.f, 3.f, h);
+}
+
+void BandView::mouseDown(const juce::MouseEvent& e)
+{
+    dragging = -1; float best = 12.f;
+    for (int i = 0; i < 3; ++i)
+    {
+        const float d = std::abs(xForHz(rawParam(proc, "xo" + juce::String(i + 1))) - (float) e.x);
+        if (d < best) { best = d; dragging = i; }
+    }
+    if (dragging >= 0) if (auto* p = proc.apvts.getParameter("xo" + juce::String(dragging + 1))) p->beginChangeGesture();
+}
+void BandView::mouseDrag(const juce::MouseEvent& e)
+{
+    if (dragging < 0) return;
+    if (auto* p = proc.apvts.getParameter("xo" + juce::String(dragging + 1)))
+    {
+        const auto range = proc.apvts.getParameterRange("xo" + juce::String(dragging + 1));
+        const float hz = range.snapToLegalValue(juce::jlimit(range.start, range.end, hzForX((float) e.x)));
+        p->setValueNotifyingHost(p->convertTo0to1(hz));
+    }
+}
+void BandView::mouseUp(const juce::MouseEvent&)
+{
+    if (dragging >= 0) if (auto* p = proc.apvts.getParameter("xo" + juce::String(dragging + 1))) p->endChangeGesture();
+    dragging = -1;
+}
+
+// ---------------- TransferView
+void TransferView::paint(juce::Graphics& g)
+{
+    g.fillAll(juce::Colour(0xff0e1213));
+    const auto r = getLocalBounds().toFloat().reduced(2.f);
+    const juce::String s = "b" + juce::String(b) + "_";
+    BandComp c;
+    c.thresholdDb = rawParam(proc, s + "th"); c.ratio = rawParam(proc, s + "ratio"); c.kneeDb = rawParam(proc, s + "knee"); c.boostDb = rawParam(proc, s + "boost");
+    auto pt = [&](float inDb, float outDb)
+    { return juce::Point<float>(r.getX() + (inDb + 60.f) / 60.f * r.getWidth(), r.getBottom() - (juce::jlimit(-60.f, 0.f, outDb) + 60.f) / 60.f * r.getHeight()); };
+    g.setColour(juce::Colour(0xff33403f)); g.drawLine({ pt(-60, -60), pt(0, 0) });
+    juce::Path p;
+    for (int x = 0; x <= 60; ++x) { const float in = -60.f + (float) x; const auto q = pt(in, c.curve(in) + c.boostDb); x ? p.lineTo(q) : p.startNewSubPath(q); }
+    g.setColour(bandColour(b)); g.strokePath(p, juce::PathStrokeType(2.f));
+    const float lv = juce::jlimit(-60.f, 0.f, proc.lvMeter[(size_t) b].load());
+    const auto d = pt(lv, c.curve(lv) + c.boostDb);
+    g.setColour(juce::Colours::white); g.fillEllipse(d.x - 3.f, d.y - 3.f, 6.f, 6.f);
+}
+
+// ---------------- PatternView
+void PatternView::paint(juce::Graphics& g)
+{
+    g.fillAll(juce::Colour(0xff0e1213));
+    const float w = (float) getWidth() / (float) ClawpressorProcessor::kSteps, h = (float) getHeight();
+    const int cur = proc.patStep.load();
+    const bool live = rawParam(proc, "str") > 0.f;
+    for (int s = 0; s < ClawpressorProcessor::kSteps; ++s)
+    {
+        const int lvl = (int) rawParam(proc, "pat" + juce::String(s));
+        const float bh = 8.f + (h - 12.f) * (float) lvl / 3.f;
+        g.setColour(live && s == cur ? juce::Colour(0xff58e08a) : juce::Colour(0xff4a5b57));
+        g.fillRect(w * (float) s + 2.f, h - bh, w - 4.f, bh);
+    }
+}
+void PatternView::mouseDown(const juce::MouseEvent& e)
+{
+    const int s = juce::jlimit(0, ClawpressorProcessor::kSteps - 1, (int) ((float) e.x / ((float) getWidth() / (float) ClawpressorProcessor::kSteps)));
+    if (auto* p = proc.apvts.getParameter("pat" + juce::String(s)))
+    {
+        int v = (int) rawParam(proc, "pat" + juce::String(s));
+        v = e.mods.isRightButtonDown() ? (v + 3) % 4 : (v + 1) % 4;
+        p->beginChangeGesture(); p->setValueNotifyingHost(p->convertTo0to1((float) v)); p->endChangeGesture();
+    }
+    repaint();
+}
+
+// ---------------- BandPanel
+BandPanel::BandPanel(ClawpressorProcessor& p, int band) : proc(p), b(band), curve(p, band)
+{
+    const juce::String s = "b" + juce::String(b) + "_";
+    knobs[0].init(*this, p.apvts, s + "th", "Thresh", " dB");
+    knobs[1].init(*this, p.apvts, s + "ratio", "Ratio", ":1");
+    knobs[2].init(*this, p.apvts, s + "knee", "Knee", " dB");
+    knobs[3].init(*this, p.apvts, s + "att", "Attack", " ms");
+    knobs[4].init(*this, p.apvts, s + "rel", "Release", " ms");
+    knobs[5].init(*this, p.apvts, s + "boost", "Boost", " dB");
+    for (auto* t : { &on, &mute, &solo }) addAndMakeVisible(*t);
+    aOn = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(p.apvts, s + "on", on);
+    aMute = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(p.apvts, s + "mute", mute);
+    aSolo = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(p.apvts, s + "solo", solo);
+    addAndMakeVisible(curve);
+}
+void BandPanel::paint(juce::Graphics& g)
+{
+    g.setColour(juce::Colour(0xff1e2528)); g.fillRoundedRectangle(getLocalBounds().toFloat(), 6.f);
+    g.setColour(bandColour(b)); g.fillRect(0, 0, getWidth(), 3);
+    static const char* nm[] = { "Low", "Low-mid", "High-mid", "High" };
+    g.setColour(juce::Colours::white); g.setFont(juce::FontOptions(13.f, juce::Font::bold));
+    g.drawText(nm[b], 8, 6, 80, 18, juce::Justification::left);
+    const float gr = juce::jlimit(0.f, 24.f, proc.grMeter[(size_t) b].load());
+    const auto m = juce::Rectangle<float>(8.f, (float) getHeight() - 12.f, (float) getWidth() - 16.f, 6.f);
+    g.setColour(juce::Colour(0xff0e1213)); g.fillRect(m);
+    g.setColour(juce::Colour(0xfff2a23c)); g.fillRect(m.withWidth(m.getWidth() * gr / 24.f));
+}
+void BandPanel::resized()
+{
+    auto r = getLocalBounds().reduced(6);
+    auto top = r.removeFromTop(22);
+    solo.setBounds(top.removeFromRight(34)); mute.setBounds(top.removeFromRight(34)); on.setBounds(top.removeFromRight(40));
+    const int kw = r.getWidth() / 3, kh = 66;
+    for (int i = 0; i < 6; ++i) knobs[(size_t) i].place({ r.getX() + (i % 3) * kw, r.getY() + (i / 3) * kh, kw, kh });
+    curve.setBounds(r.withTrimmedTop(2 * kh + 4).withTrimmedBottom(16));
+}
+
+// ---------------- Editor
+ClawpressorEditor::ClawpressorEditor(ClawpressorProcessor& p)
+    : AudioProcessorEditor(&p), proc(p), bandView(p), pattern(p)
 {
     setLookAndFeel(&laf);
-    const char* ids[] = {"mix", "xo1", "xo2", "xo3", "limRel", "post"};
-    const char* nm[]  = {"Dry/Wet", "X1", "X2", "X3", "Lim rel", "Post"};
-    for (int i = 0; i < 6; ++i)
+    addAndMakeVisible(bandView);
+    for (int b = 0; b < ClawpressorProcessor::kBands; ++b) { panels[(size_t) b] = std::make_unique<BandPanel>(p, b); addAndMakeVisible(*panels[(size_t) b]); }
+    addAndMakeVisible(pattern);
+    for (int i = 0; i < p.getNumPrograms(); ++i) presets.addItem(p.getProgramName(i), i + 1);
+    presets.setSelectedId(p.getCurrentProgram() + 1, juce::dontSendNotification);
+    presets.onChange = [this] { proc.setCurrentProgram(presets.getSelectedId() - 1); };
+    addAndMakeVisible(presets);
+    for (int i = 0; i < 5; ++i) look.addItem(ClawpressorProcessor::lookNames[i], i + 1);
+    speed.addItemList({ "1/16", "1/8", "1/4" }, 1);
+    aLook = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(p.apvts, "look", look);
+    aSpeed = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(p.apvts, "speed", speed);
+    addAndMakeVisible(look); addAndMakeVisible(speed);
+    for (auto* l : { &presetLabel, &lookLabel, &speedLabel }) { addAndMakeVisible(*l); l->setFont(juce::FontOptions(12.f)); }
+    mix.init(*this, p.apvts, "mix", "Dry/Wet", " %");
+    limRel.init(*this, p.apvts, "limRel", "Limiter rel", " ms");
+    post.init(*this, p.apvts, "post", "Post gain", " dB");
+    strength.init(*this, p.apvts, "str", "Pattern", " %");
+    setSize(1000, 640);
+    gate.onFrame = [this]
     {
-        auto s = std::make_unique<juce::Slider>(juce::Slider::RotaryVerticalDrag, juce::Slider::NoTextBox);
-        auto l = std::make_unique<juce::Label>(juce::String(), nm[i]);
-        l->setJustificationType(juce::Justification::centred);
-        addAndMakeVisible(*s); addAndMakeVisible(*l);
-        att.push_back(std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(proc.apvts, ids[i], *s));
-        knobs.push_back(std::move(s)); labels.push_back(std::move(l));
-    }
-    setSize(720, 300);
-    gate.onFrame = [this] { repaint(); };
+        bandView.repaint(); pattern.repaint();
+        for (auto& pn : panels) pn->repaint();
+    };
     gate.start(30);
 }
 
@@ -23,24 +198,34 @@ void ClawpressorEditor::paint(juce::Graphics& g)
 {
     g.fillAll(catui::Colours::panel());
     g.setColour(catui::Colours::accent());
-    g.setFont(18.f);
-    g.drawText("Clawpressor", 12, 8, 300, 24, juce::Justification::left);
-    // simple gain reduction meters, one per band (animated from the audio thread values)
-    for (int b = 0; b < ClawpressorProcessor::kBands; ++b)
-    {
-        const float gr = juce::jlimit(0.f, 24.f, proc.grMeter[(size_t) b].load());
-        auto r = juce::Rectangle<float>(20.f + 170.f * (float) b, 50.f, 150.f, 12.f);
-        g.setColour(catui::Colours::panelLight()); g.fillRect(r);
-        g.setColour(catui::Colours::accent()); g.fillRect(r.withWidth(r.getWidth() * gr / 24.f));
-    }
+    g.setFont(juce::FontOptions(20.f, juce::Font::bold));
+    g.drawText("Clawpressor", 12, 8, 200, 26, juce::Justification::left);
+    g.setColour(catui::Colours::dim()); g.setFont(juce::FontOptions(12.f));
+    g.drawText("Rhythmic gain pattern (click a step, right click to lower)", 12, 470, 420, 16, juce::Justification::left);
 }
 
 void ClawpressorEditor::resized()
 {
-    for (size_t i = 0; i < knobs.size(); ++i)
-    {
-        const int x = 20 + (int) i * 110;
-        knobs[i]->setBounds(x, 100, 90, 90);
-        labels[i]->setBounds(x, 195, 90, 20);
-    }
+    auto r = getLocalBounds().reduced(10);
+    auto top = r.removeFromTop(32);
+    presets.setBounds(top.removeFromRight(280)); presetLabel.setBounds(top.removeFromRight(50));
+    r.removeFromTop(4);
+    bandView.setBounds(r.removeFromTop(170));
+    r.removeFromTop(8);
+    auto row = r.removeFromTop(246);
+    const int w = row.getWidth() / 4;
+    for (int b = 0; b < 4; ++b) panels[(size_t) b]->setBounds(row.removeFromLeft(w).reduced(3));
+    r.removeFromTop(6);
+    auto bottom = r;
+    auto left = bottom.removeFromLeft(470);
+    left.removeFromTop(20);
+    pattern.setBounds(left.removeFromTop(90).reduced(0, 2));
+    auto ctl = left;
+    speedLabel.setBounds(ctl.removeFromLeft(90).withHeight(20)); speed.setBounds(ctl.removeFromLeft(80).withHeight(24));
+    ctl.removeFromLeft(20);
+    lookLabel.setBounds(ctl.removeFromLeft(70).withHeight(20)); look.setBounds(ctl.removeFromLeft(90).withHeight(24));
+    bottom.removeFromLeft(20);
+    const int kw = bottom.getWidth() / 4;
+    mix.place(bottom.removeFromLeft(kw).withTrimmedBottom(10)); strength.place(bottom.removeFromLeft(kw).withTrimmedBottom(10));
+    limRel.place(bottom.removeFromLeft(kw).withTrimmedBottom(10)); post.place(bottom.withTrimmedBottom(10));
 }
