@@ -28,7 +28,7 @@
 -- Exporting juceaide
 -- Testing juceaide
 -- Finished setting up juceaide
--- Configuring done (101.4s)
+-- Configuring done (93.8s)
 -- Generating done (0.0s)
 -- Build files have been written to: /home/runner/work/Clawpressor-vst/Clawpressor-vst/build
 [  1%] Building VST3 manifest helper for Clawpressor
@@ -41,7 +41,7 @@
 -- Check for working CXX compiler: /usr/bin/c++ - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
--- Configuring done (0.3s)
+-- Configuring done (0.2s)
 -- Generating done (0.0s)
 -- Build files have been written to: /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/vst3_helpers/Clawpressor
 gmake[3]: warning: jobserver unavailable: using -j1.  Add '+' to parent make rule.
@@ -69,7 +69,8 @@ gmake[3]: warning: jobserver unavailable: using -j1.  Add '+' to parent make rul
 In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.h:145,
                  from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.h:64,
                  from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.h:2,
-                 from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.cpp:1:
+                 from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginEditor.h:2,
+                 from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginEditor.cpp:1:
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_audio_processors_headless/processors/juce_AudioProcessor.h:292:18: warning: ‘virtual void juce::AudioProcessor::processBlock(juce::AudioBuffer<double>&, juce::MidiBuffer&)’ was hidden [-Woverloaded-virtual=]
   292 |     virtual void processBlock (AudioBuffer<double>& buffer,
       |                  ^~~~~~~~~~~~
@@ -79,8 +80,7 @@ In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_d
 In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.h:145,
                  from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.h:64,
                  from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.h:2,
-                 from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginEditor.h:2,
-                 from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginEditor.cpp:1:
+                 from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.cpp:1:
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_audio_processors_headless/processors/juce_AudioProcessor.h:292:18: warning: ‘virtual void juce::AudioProcessor::processBlock(juce::AudioBuffer<double>&, juce::MidiBuffer&)’ was hidden [-Woverloaded-virtual=]
   292 |     virtual void processBlock (AudioBuffer<double>& buffer,
       |                  ^~~~~~~~~~~~
@@ -117,14 +117,14 @@ In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_d
 [ 79%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
 [ 81%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
 [ 83%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
+[ 84%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
 [ 86%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
-[ 86%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
 [ 88%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
+[ 89%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
 [ 91%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
-[ 91%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
-[ 93%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
+[ 93%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
+[ 94%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
 [ 96%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
-[ 96%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
 [ 98%] Linking CXX executable Clawpressor_artefacts/Release/Standalone/Clawpressor
 [ 98%] Built target Clawpressor_Standalone
 [100%] Linking CXX shared module Clawpressor_artefacts/Release/VST3/Clawpressor.vst3/Contents/x86_64-linux/Clawpressor.so
