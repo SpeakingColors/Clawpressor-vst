@@ -16,3 +16,6 @@ Multiband compressor and limiter. The same engine will also power the Dance MB s
 - Free, open source, AGPL-3.0-or-later
 - Light on CPU, RAM and GPU; stop drawing when the window is not in front, audio keeps running
 - Settings page with MIDI filters on by default, selectable preset/backup folders, UI size reset to 100%
+
+- [x] Interactive mockup page (docs/mockup/clawpressor.html)
+- [ ] JUCE scaffold on cat-ui (processor, 4-band crossover, editor)

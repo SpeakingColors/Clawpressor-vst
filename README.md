@@ -19,6 +19,7 @@ Planning. No plugin to download yet. Free and open source. Donations welcome (li
 ## Docs
 - [Roadmap](ROADMAP.md)
 - [Design notes](docs/DESIGN.md)
+- [Interactive mockup](docs/mockup/clawpressor.html) (open in a browser; synthetic test signal, not real audio)
 
 ## License
 AGPL-3.0-or-later, see [LICENSE](LICENSE).
