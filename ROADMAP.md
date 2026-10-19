@@ -3,7 +3,7 @@
 Multiband compressor and limiter. The same engine will also power the Dance MB section inside SupurrSaw.
 
 ## Next
-- [ ] Mockup page on the cat-ui look (wood cheeks, resizable, reset to 100%)
+- [x] Mockup page on the cat-ui look (wood cheeks, resizable, reset to 100%): 4 bands, crossovers, per band compressor and limiter, curve, band scope, GR history, pattern gain, master limiter, density meter (v2, 2026-10-19)
 - [ ] DSP core in C++: crossover (selectable slope), per band compressor with auto-release and autogain, per band limiter, master limiter, dry/wet
 - [ ] JUCE VST3 shell on cat-ui, draw through `catui::RenderGate`
 - [ ] Spectrum and per band scope, gain-reduction history, density meter, low-CPU scope mode
