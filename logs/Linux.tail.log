@@ -37,13 +37,13 @@ Call Stack (most recent call first):
   CMakeLists.txt:11 (juce_add_plugin)
 
 
--- Configuring done (98.5s)
+-- Configuring done (94.8s)
 -- Generating done (0.0s)
 -- Build files have been written to: /home/runner/work/Clawpressor-vst/Clawpressor-vst/build
 [  1%] Building VST3 manifest helper for Clawpressor
 [  3%] Building CXX object CMakeFiles/claw_dsp_test.dir/tests/dsp_test.cpp.o
-[  4%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/src/CatFrame.cpp.o
-[  6%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/src/CatLookAndFeel.cpp.o
+[  4%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/src/CatLookAndFeel.cpp.o
+[  6%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/src/CatFrame.cpp.o
 -- The CXX compiler identification is GNU 13.3.0
 -- Detecting CXX compiler ABI info
 -- Detecting CXX compiler ABI info - done
@@ -81,6 +81,16 @@ gmake[3]: warning: jobserver unavailable: using -j1.  Add '+' to parent make rul
 In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.h:145,
                  from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.h:64,
                  from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.h:2,
+                 from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.cpp:1:
+/home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_audio_processors_headless/processors/juce_AudioProcessor.h:292:18: warning: ‘virtual void juce::AudioProcessor::processBlock(juce::AudioBuffer<double>&, juce::MidiBuffer&)’ was hidden [-Woverloaded-virtual=]
+  292 |     virtual void processBlock (AudioBuffer<double>& buffer,
+      |                  ^~~~~~~~~~~~
+/home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.h:15:10: note:   by ‘virtual void ClawpressorProcessor::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&)’
+   15 |     void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
+      |          ^~~~~~~~~~~~
+In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.h:145,
+                 from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.h:64,
+                 from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.h:2,
                  from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginEditor.h:2,
                  from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginEditor.cpp:1:
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_audio_processors_headless/processors/juce_AudioProcessor.h:292:18: warning: ‘virtual void juce::AudioProcessor::processBlock(juce::AudioBuffer<double>&, juce::MidiBuffer&)’ was hidden [-Woverloaded-virtual=]
@@ -89,27 +99,58 @@ In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_d
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.h:15:10: note:   by ‘virtual void ClawpressorProcessor::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&)’
    15 |     void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
       |          ^~~~~~~~~~~~
-/home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginEditor.cpp: In constructor ‘ClawpressorEditor::ClawpressorEditor(ClawpressorProcessor&)’:
-/home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginEditor.cpp:238:12: error: ‘class juce::ResizableBorderComponent’ has no member named ‘setConstrainer’; did you mean ‘juce::ComponentBoundsConstrainer* juce::ResizableBorderComponent::constrainer’? (not accessible from this context)
-  238 |     border.setConstrainer(getConstrainer());
-      |            ^~~~~~~~~~~~~~
-In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.h:243,
-                 from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.h:68,
-                 from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.h:65:
-/home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_gui_basics/layout/juce_ResizableBorderComponent.h:195:33: note: declared private here
-  195 |     ComponentBoundsConstrainer* constrainer;
-      |                                 ^~~~~~~~~~~
-In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.h:145,
-                 from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.h:64,
-                 from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.h:2,
-                 from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.cpp:1:
-/home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_audio_processors_headless/processors/juce_AudioProcessor.h:292:18: warning: ‘virtual void juce::AudioProcessor::processBlock(juce::AudioBuffer<double>&, juce::MidiBuffer&)’ was hidden [-Woverloaded-virtual=]
-  292 |     virtual void processBlock (AudioBuffer<double>& buffer,
-      |                  ^~~~~~~~~~~~
-/home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.h:15:10: note:   by ‘virtual void ClawpressorProcessor::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&)’
-   15 |     void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
-      |          ^~~~~~~~~~~~
-gmake[2]: *** [CMakeFiles/Clawpressor.dir/build.make:93: CMakeFiles/Clawpressor.dir/src/PluginEditor.cpp.o] Error 1
-gmake[2]: *** Waiting for unfinished jobs....
-gmake[1]: *** [CMakeFiles/Makefile2:204: CMakeFiles/Clawpressor.dir/all] Error 2
-gmake: *** [Makefile:146: all] Error 2
+[ 37%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.cpp.o
+[ 39%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics_2.cpp.o
+In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_core/system/juce_StandardHeader.h:108,
+                 from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_core/juce_core.h:215,
+                 from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_graphics/juce_graphics.h:67,
+                 from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.h:68,
+                 from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.cpp:55:
+/home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_core/system/juce_PlatformDefs.h:292:38: note: ‘#pragma message: This version of JUCE does not use the splash screen, the flag JUCE_DISPLAY_SPLASH_SCREEN is ignored’
+  292 |  #define JUCE_COMPILER_WARNING(msg)  _Pragma (JUCE_STRINGIFY (message (msg)))
+      |                                      ^~~~~~~
+/home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.cpp:61:2: note: in expansion of macro ‘JUCE_COMPILER_WARNING’
+   61 |  JUCE_COMPILER_WARNING ("This version of JUCE does not use the splash screen, the flag JUCE_DISPLAY_SPLASH_SCREEN is ignored")
+      |  ^~~~~~~~~~~~~~~~~~~~~
+[ 40%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics_3.cpp.o
+[ 42%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics_4.cpp.o
+[ 44%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics_5.cpp.o
+[ 45%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_graphics/juce_graphics.cpp.o
+[ 47%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.o
+[ 49%] Building C object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Sheenbidi.c.o
+[ 50%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_events/juce_events.cpp.o
+[ 52%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_core/juce_core.cpp.o
+[ 54%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_core/juce_core_CompilationTime.cpp.o
+[ 55%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_data_structures/juce_data_structures.cpp.o
+[ 57%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.cpp.o
+[ 59%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_ara.cpp.o
+[ 60%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless_lv2_libs.cpp.o
+[ 62%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_audio_basics/juce_audio_basics.cpp.o
+[ 63%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_audio_utils/juce_audio_utils.cpp.o
+[ 65%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_audio_formats/juce_audio_formats.cpp.o
+[ 67%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_audio_devices/juce_audio_devices.cpp.o
+[ 68%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.cpp.o
+[ 70%] Linking CXX static library Clawpressor_artefacts/Release/libClawpressor_SharedCode.a
+[ 70%] Built target Clawpressor
+[ 72%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.cpp.o
+[ 73%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.cpp.o
+[ 75%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
+[ 77%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
+[ 81%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
+[ 81%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
+[ 81%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
+[ 83%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
+[ 85%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
+[ 86%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
+[ 88%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
+[ 90%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
+[ 91%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
+[ 93%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
+[ 95%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
+[ 96%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
+[ 98%] Linking CXX executable Clawpressor_artefacts/Release/Standalone/Clawpressor
+[ 98%] Built target Clawpressor_Standalone
+[100%] Linking CXX shared module Clawpressor_artefacts/Release/VST3/Clawpressor.vst3/Contents/x86_64-linux/Clawpressor.so
+removing moduleinfo.json
+creating /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/Clawpressor_artefacts/Release/VST3/Clawpressor.vst3/Contents/Resources/moduleinfo.json
+[100%] Built target Clawpressor_VST3
