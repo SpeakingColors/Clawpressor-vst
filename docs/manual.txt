@@ -1,0 +1,37 @@
+# Intro
+
+Clawpressor is a four band compressor for bass, synth leads and vocals. Each band has its own compressor with a soft knee and a lookahead, plus a lift (upward compression) that brings up quiet detail, antialiased saturation and a stereo width control. A rhythmic gain pattern, a mix knob, a smooth soft clipper and a master limiter finish the chain.
+
+It is free and open source, made by Studio 87. It collects nothing and works fully offline.
+
+# Quick start
+
+- Put Clawpressor on a bass, a lead or a bus. Pick a preset from the list at the top.
+- Drag the white crossover lines in the band display to set where the bands split.
+- Pick a band and drag the white dot in its curve to set the threshold. Drag the yellow dot to set the lift floor.
+- Use Mix to blend the processed sound with the original (parallel compression).
+- Hover any control for one second to read what it does.
+
+# Bands
+
+Four bands (low, low-mid, high-mid, high) split with phase-aligned Linkwitz-Riley crossovers. Each band has On, Mute and Solo. Threshold is the level above which the band is compressed, Ratio how strongly, Knee how gradually the compression starts. Attack and Release set the speed. Boost adds make-up gain after the compressor.
+
+# Lift, saturation and width
+
+Lift floor and Lift ratio are an upward compressor: signals quieter than the floor are raised (a ratio of 2:1 lifts a signal 10 dB under the floor by 5 dB), fading out well below so silence is not boosted. Saturation adds antialiased tanh drive to the band and keeps the level. Width sets the stereo width of the band: 0 is mono (good for the low band), 100 is unchanged, 200 doubles the side.
+
+# Pattern and master
+
+The pattern is 16 steps that dip the gain of the wet signal in time with the host tempo. Strength sets how deep, Speed how long a step is (1/16, 1/8, 1/4). Dry/Wet mixes processed and original. Lookahead lets the compressors see ahead of the audio (it adds the same latency to the dry path, reported to the host). The limiter release and the post gain finish the chain. Soft clip is a smooth knee clipper at the very end.
+
+# Recommendations
+
+- Bass: put the low band on, set its Width to 0, add a little Saturation, ratio 4 to 6.
+- Synth lead: ratio 3 to 4, a small amount of lift, widen the high bands to 120 to 160.
+- Vocals: ratio 2 to 3 on the mid bands, slower attack, low band off.
+- If the sound gets dull when you push it, lower the ratio before raising the threshold.
+- Lookahead above 0 adds latency; turn it off when tracking live.
+
+# Not in this version
+
+The three assignable pattern lanes from the design mockup (any parameter sequenced by 16 steps) are not in the plugin yet; the plugin has the single gain pattern.

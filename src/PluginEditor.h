@@ -2,6 +2,8 @@
 #include "PluginProcessor.h"
 #include <catui/CatLookAndFeel.h>
 #include <catui/RenderGate.h>
+#include <catui/Logo.h>
+#include <catui/SodaPop.h>
 
 namespace claw
 {
@@ -44,8 +46,13 @@ class TransferView : public juce::Component
 public:
     TransferView(ClawpressorProcessor& p, int band) : proc(p), b(band) {}
     void paint(juce::Graphics&) override;
+    // Drag the white dot sideways for the threshold, the lower dot for the lift floor (upward compression).
+    void mouseDown(const juce::MouseEvent&) override;
+    void mouseDrag(const juce::MouseEvent&) override;
+    void mouseUp(const juce::MouseEvent&) override;
 private:
-    ClawpressorProcessor& proc; int b;
+    float dbForX(float x) const;
+    ClawpressorProcessor& proc; int b; int drag = -1;
 };
 
 // 16 step rhythmic gain pattern. Click to raise a step, right click to lower it.
@@ -67,7 +74,7 @@ public:
     void resized() override;
 private:
     ClawpressorProcessor& proc; int b;
-    std::array<Knob, 6> knobs;
+    std::array<Knob, 10> knobs;
     juce::ToggleButton on { "On" }, mute { "M" }, solo { "S" };
     std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> aOn, aMute, aSolo;
     TransferView curve;
@@ -81,6 +88,8 @@ public:
     ~ClawpressorEditor() override { setLookAndFeel(nullptr); }
     void paint(juce::Graphics&) override;
     void resized() override;
+    void mouseDoubleClick(const juce::MouseEvent&) override;   // on a wood cheek: back to 100 %
+    static constexpr int baseW = 1100, baseH = 800, cheek = 24;
 private:
     ClawpressorProcessor& proc;
     catui::CatLookAndFeel laf;
@@ -91,6 +100,11 @@ private:
     juce::ComboBox presets, look, speed;
     std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> aLook, aSpeed;
     claw::Knob mix, limRel, post, strength;
+    juce::ToggleButton clip { "Soft clip" };
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> aClip;
+    juce::TooltipWindow tooltip { this, 1000 };
+    juce::ResizableBorderComponent border;
+    int patLabelY = 600;
     juce::Label presetLabel { {}, "Preset" }, lookLabel { {}, "Lookahead" }, speedLabel { {}, "Pattern speed" };
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ClawpressorEditor)
 };

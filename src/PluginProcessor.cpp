@@ -6,7 +6,7 @@ const char* ClawpressorProcessor::lookNames[] = { "Off", "1 ms", "2.5 ms", "5 ms
 
 namespace
 {
-struct Preset { const char* name; bool on[4]; float th[4], ratio[4], knee[4], att[4], rel[4], boost[4]; float mix; };
+struct Preset { const char* name; bool on[4]; float th[4], ratio[4], knee[4], att[4], rel[4], boost[4]; float mix; float ufl = -60.f, uamt = 1.f, sat[4] = {0, 0, 0, 0}, wid[4] = {100, 100, 100, 100}; };
 const Preset kPresets[] = {
     { "Dance Master 2 style (low band off)", {false, true, true, true},
       {-20, -18, -20, -22}, {4, 4, 5, 6}, {6, 6, 4, 3}, {5, 3, 2, 1}, {80, 80, 60, 50}, {0, 0, 0, 0}, 50 },
@@ -14,6 +14,12 @@ const Preset kPresets[] = {
       {-30, -30, -30, -30}, {8, 8, 8, 8}, {2, 2, 2, 2}, {1, 1, 1, 1}, {60, 60, 60, 60}, {2, 2, 2, 2}, 50 },
     { "Gentle glue", {true, true, true, true},
       {-14, -14, -14, -14}, {2, 2, 2, 2}, {10, 10, 10, 10}, {20, 20, 20, 20}, {200, 200, 200, 200}, {0, 0, 0, 0}, 100 },
+    { "Mono bass, wide top", {true, true, true, true},
+      {-22, -20, -20, -22}, {4, 3, 3, 4}, {6, 6, 6, 6}, {8, 5, 3, 2}, {120, 90, 70, 60}, {0, 0, 0, 0}, 80, -60.f, 1.f, {10, 0, 0, 0}, {0, 100, 140, 160} },
+    { "Lift the tails", {true, true, true, true},
+      {-16, -16, -16, -16}, {3, 3, 3, 3}, {8, 8, 8, 8}, {10, 8, 6, 4}, {150, 120, 100, 80}, {0, 0, 0, 0}, 70, -36.f, 2.5f, {0, 0, 0, 0}, {100, 100, 100, 100} },
+    { "Warm and wide synth", {true, true, true, true},
+      {-24, -22, -22, -24}, {3, 3, 3, 3}, {6, 6, 6, 6}, {6, 5, 4, 3}, {100, 90, 80, 70}, {1, 1, 1, 1}, 65, -60.f, 1.f, {20, 25, 20, 10}, {40, 110, 130, 150} },
 };
 constexpr int kNumPresets = (int) (sizeof(kPresets) / sizeof(kPresets[0]));
 }
@@ -33,6 +39,7 @@ APVTS::ParameterLayout ClawpressorProcessor::layout()
     f("xo3", "Crossover 3", 1500.f, 12000.f, 5000.f, 0.f, 5000.f);
     f("limRel", "Limiter release", 1.f, 1000.f, 150.f, 0.f, 150.f);
     f("post", "Post gain", -12.f, 12.f, 0.f, 0.1f);
+    p.push_back(std::make_unique<juce::AudioParameterBool>(juce::ParameterID{"clip", 1}, "Soft clip", true));
     p.push_back(std::make_unique<juce::AudioParameterChoice>(juce::ParameterID{"look", 1}, "Lookahead", juce::StringArray(lookNames, 5), 0));
     p.push_back(std::make_unique<juce::AudioParameterChoice>(juce::ParameterID{"speed", 1}, "Pattern speed", juce::StringArray{"1/16", "1/8", "1/4"}, 1));
     f("str", "Pattern strength", 0.f, 100.f, 0.f, 1.f);
@@ -51,6 +58,10 @@ APVTS::ParameterLayout ClawpressorProcessor::layout()
         f(s + "att", n + "Attack", 0.1f, 100.f, 5.f, 0.f, 10.f);
         f(s + "rel", n + "Release", 5.f, 1000.f, 80.f, 0.f, 100.f);
         f(s + "boost", n + "Boost", 0.f, 12.f, 0.f, 0.5f);
+        f(s + "ufl", n + "Lift floor", -60.f, -20.f, -60.f, 0.5f);
+        f(s + "uamt", n + "Lift ratio", 1.f, 4.f, 1.f, 0.1f);
+        f(s + "sat", n + "Saturation", 0.f, 100.f, 0.f, 1.f);
+        f(s + "wid", n + "Width", 0.f, 200.f, 100.f, 1.f);
     }
     return { p.begin(), p.end() };
 }
@@ -80,6 +91,11 @@ void ClawpressorProcessor::applyPreset(int i)
         const juce::String s = "b" + juce::String(b) + "_";
         set(s + "on", pr.on[b] ? 1.f : 0.f); set(s + "th", pr.th[b]); set(s + "ratio", pr.ratio[b]); set(s + "knee", pr.knee[b]);
         set(s + "att", pr.att[b]); set(s + "rel", pr.rel[b]); set(s + "boost", pr.boost[b]);
+    }
+    for (int b = 0; b < kBands; ++b)
+    {
+        const juce::String s = "b" + juce::String(b) + "_";
+        set(s + "ufl", pr.ufl); set(s + "uamt", pr.uamt); set(s + "sat", pr.sat[b]); set(s + "wid", pr.wid[b]);
     }
     set("mix", pr.mix);
 }
@@ -139,9 +155,18 @@ void ClawpressorProcessor::processBlock(juce::AudioBuffer<float>& buf, juce::Mid
         const juce::String s = "b" + juce::String(b) + "_";
         auto& cp = comp[(size_t) b];
         cp.on = get(s + "on") > .5f; cp.thresholdDb = get(s + "th"); cp.ratio = get(s + "ratio");
+        cp.liftFloorDb = get(s + "ufl"); cp.liftRatio = get(s + "uamt");
         cp.kneeDb = get(s + "knee"); cp.attackMs = get(s + "att"); cp.releaseMs = get(s + "rel"); cp.boostDb = get(s + "boost");
         float* ch[2] = { bandData[b][0].data(), bandData[b][1].data() };
         cp.process(ch, nch, n, look);
+        {   // per band saturation (antialiased) and stereo width, after the compressor
+            const float sat = get(s + "sat") * 0.01f, wd = get(s + "wid") * 0.01f;
+            for (int i = 0; i < n; ++i)
+            {
+                ch[0][i] = claw::saturate(satL[(size_t) b], ch[0][i], sat);
+                if (nch > 1) { ch[1][i] = claw::saturate(satR[(size_t) b], ch[1][i], sat); claw::width(ch[0][i], ch[1][i], wd); }
+            }
+        }
         grMeter[(size_t) b] = cp.grDb; lvMeter[(size_t) b] = cp.levelDb;
         const bool audible = get(s + "mute") < .5f && (!anySolo || get(s + "solo") > .5f);
         if (audible) for (int c = 0; c < nch; ++c) for (int i = 0; i < n; ++i) wet[c][i] += ch[c][i];
@@ -185,6 +210,8 @@ void ClawpressorProcessor::processBlock(juce::AudioBuffer<float>& buf, juce::Mid
     juce::dsp::AudioBlock<float> blk(buf);
     limiter.process(juce::dsp::ProcessContextReplacing<float>(blk));
     buf.applyGain(juce::Decibels::decibelsToGain(get("post")));
+    if (get("clip") > .5f)   // smooth knee clipper at the very end, ceiling 0.97 (just under full scale)
+        for (int c = 0; c < nch; ++c) { auto* d = buf.getWritePointer(c); for (int i = 0; i < n; ++i) d[i] = claw::softClip(d[i], 0.97f); }
     float pk = buf.getMagnitude(0, n);
     masterGr = juce::jmax(0.f, juce::Decibels::gainToDecibels(pk, -100.f)); // output peak in dB, shown as the master meter
 }

@@ -1,4 +1,5 @@
 #include "PluginEditor.h"
+#include <catui/CatLookAndFeel.h>
 
 using namespace claw;
 
@@ -87,15 +88,48 @@ void TransferView::paint(juce::Graphics& g)
     const juce::String s = "b" + juce::String(b) + "_";
     BandComp c;
     c.thresholdDb = rawParam(proc, s + "th"); c.ratio = rawParam(proc, s + "ratio"); c.kneeDb = rawParam(proc, s + "knee"); c.boostDb = rawParam(proc, s + "boost");
+    const float fl = rawParam(proc, s + "ufl"), ur = rawParam(proc, s + "uamt");
     auto pt = [&](float inDb, float outDb)
     { return juce::Point<float>(r.getX() + (inDb + 60.f) / 60.f * r.getWidth(), r.getBottom() - (juce::jlimit(-60.f, 0.f, outDb) + 60.f) / 60.f * r.getHeight()); };
     g.setColour(juce::Colour(0xff33403f)); g.drawLine({ pt(-60, -60), pt(0, 0) });
     juce::Path p;
-    for (int x = 0; x <= 60; ++x) { const float in = -60.f + (float) x; const auto q = pt(in, c.curve(in) + c.boostDb); x ? p.lineTo(q) : p.startNewSubPath(q); }
+    for (int x = 0; x <= 60; ++x) { const float in = -60.f + (float) x; const auto q = pt(in, c.curve(in) + c.boostDb + (in < c.thresholdDb ? claw::upwardLiftDb(in, fl, ur) : 0.f)); x ? p.lineTo(q) : p.startNewSubPath(q); }
     g.setColour(bandColour(b)); g.strokePath(p, juce::PathStrokeType(2.f));
+    g.setFont(juce::FontOptions(9.f)); g.setColour(juce::Colour(0xff6b8279));
+    for (int d = -60; d <= 0; d += 20) { g.drawText(juce::String(d), (int) pt((float) d, -60).x, getHeight() - 11, 22, 10, juce::Justification::left); }
+    const auto th = pt(c.thresholdDb, c.curve(c.thresholdDb) + c.boostDb);
+    g.setColour(juce::Colours::white); g.drawEllipse(th.x - 4.f, th.y - 4.f, 8.f, 8.f, 1.5f);
+    if (ur > 1.04f) { const auto lf = pt(fl, fl); g.setColour(juce::Colour(0xffffd100)); g.drawEllipse(lf.x - 4.f, lf.y - 4.f, 8.f, 8.f, 1.5f); }
     const float lv = juce::jlimit(-60.f, 0.f, proc.lvMeter[(size_t) b].load());
     const auto d = pt(lv, c.curve(lv) + c.boostDb);
     g.setColour(juce::Colours::white); g.fillEllipse(d.x - 3.f, d.y - 3.f, 6.f, 6.f);
+}
+
+float TransferView::dbForX(float x) const { return juce::jlimit(-60.f, 0.f, -60.f + (x - 2.f) / ((float) getWidth() - 4.f) * 60.f); }
+void TransferView::mouseDown(const juce::MouseEvent& e)
+{
+    const juce::String s = "b" + juce::String(b) + "_";
+    const float x = (float) e.x, thx = 2.f + (rawParam(proc, s + "th") + 60.f) / 60.f * ((float) getWidth() - 4.f);
+    const float flx = 2.f + (rawParam(proc, s + "ufl") + 60.f) / 60.f * ((float) getWidth() - 4.f);
+    drag = std::abs(x - thx) <= std::abs(x - flx) ? 0 : 1;
+    if (auto* p = proc.apvts.getParameter(s + (drag == 0 ? "th" : "ufl"))) p->beginChangeGesture();
+    mouseDrag(e);
+}
+void TransferView::mouseDrag(const juce::MouseEvent& e)
+{
+    if (drag < 0) return;
+    const juce::String id = "b" + juce::String(b) + "_" + (drag == 0 ? "th" : "ufl");
+    if (auto* p = proc.apvts.getParameter(id))
+    {
+        const auto range = proc.apvts.getParameterRange(id);
+        p->setValueNotifyingHost(p->convertTo0to1(range.snapToLegalValue(juce::jlimit(range.start, range.end, dbForX((float) e.x)))));
+    }
+}
+void TransferView::mouseUp(const juce::MouseEvent&)
+{
+    if (drag < 0) return;
+    if (auto* p = proc.apvts.getParameter("b" + juce::String(b) + "_" + (drag == 0 ? "th" : "ufl"))) p->endChangeGesture();
+    drag = -1;
 }
 
 // ---------------- PatternView
@@ -135,6 +169,15 @@ BandPanel::BandPanel(ClawpressorProcessor& p, int band) : proc(p), b(band), curv
     knobs[3].init(*this, p.apvts, s + "att", "Attack", " ms");
     knobs[4].init(*this, p.apvts, s + "rel", "Release", " ms");
     knobs[5].init(*this, p.apvts, s + "boost", "Boost", " dB");
+    knobs[6].init(*this, p.apvts, s + "ufl", "Lift floor", " dB");
+    knobs[7].init(*this, p.apvts, s + "uamt", "Lift ratio", ":1");
+    knobs[8].init(*this, p.apvts, s + "sat", "Saturation", " %");
+    knobs[9].init(*this, p.apvts, s + "wid", "Width", " %");
+    knobs[0].s.setTooltip("Level above which the band is compressed. Drag the white dot in the curve too.");
+    knobs[6].s.setTooltip("Upward compression: signals quieter than this are lifted. Drag the yellow dot in the curve too.");
+    knobs[7].s.setTooltip("How strongly quiet signals are lifted. 1:1 is off. 2:1 lifts a signal 10 dB under the floor by 5 dB.");
+    knobs[8].s.setTooltip("Antialiased tanh saturation on this band, level compensated.");
+    knobs[9].s.setTooltip("Stereo width of this band. 0 is mono (use it on the low band for a mono bass), 100 is unchanged.");
     for (auto* t : { &on, &mute, &solo }) addAndMakeVisible(*t);
     aOn = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(p.apvts, s + "on", on);
     aMute = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(p.apvts, s + "mute", mute);
@@ -158,16 +201,19 @@ void BandPanel::resized()
     auto r = getLocalBounds().reduced(6);
     auto top = r.removeFromTop(22);
     solo.setBounds(top.removeFromRight(34)); mute.setBounds(top.removeFromRight(34)); on.setBounds(top.removeFromRight(40));
-    const int kw = r.getWidth() / 3, kh = 66;
-    for (int i = 0; i < 6; ++i) knobs[(size_t) i].place({ r.getX() + (i % 3) * kw, r.getY() + (i / 3) * kh, kw, kh });
-    curve.setBounds(r.withTrimmedTop(2 * kh + 4).withTrimmedBottom(16));
+    const int kw = r.getWidth() / 3, kh = juce::jmax(50, (r.getHeight() - 110) / 4);
+    for (int i = 0; i < 10; ++i) knobs[(size_t) i].place({ r.getX() + (i % 3) * kw, r.getY() + (i / 3) * kh, kw, kh });
+    curve.setBounds(r.withTrimmedTop(4 * kh + 4).withTrimmedBottom(16));
 }
 
 // ---------------- Editor
 ClawpressorEditor::ClawpressorEditor(ClawpressorProcessor& p)
-    : AudioProcessorEditor(&p), proc(p), bandView(p), pattern(p)
+    : AudioProcessorEditor(&p), proc(p), bandView(p), pattern(p), border(this, nullptr)
 {
     setLookAndFeel(&laf);
+    clip.setTooltip("Smooth knee clipper at the very end (ceiling just under full scale). Keeps peaks from ever clipping the converter.");
+    addAndMakeVisible(clip);
+    aClip = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(p.apvts, "clip", clip);
     addAndMakeVisible(bandView);
     for (int b = 0; b < ClawpressorProcessor::kBands; ++b) { panels[(size_t) b] = std::make_unique<BandPanel>(p, b); addAndMakeVisible(*panels[(size_t) b]); }
     addAndMakeVisible(pattern);
@@ -185,7 +231,13 @@ ClawpressorEditor::ClawpressorEditor(ClawpressorProcessor& p)
     limRel.init(*this, p.apvts, "limRel", "Limiter rel", " ms");
     post.init(*this, p.apvts, "post", "Post gain", " dB");
     strength.init(*this, p.apvts, "str", "Pattern", " %");
-    setSize(1000, 640);
+    setResizable(true, false);
+    setResizeLimits(baseW / 2, baseH / 2, baseW * 2, baseH * 2);
+    getConstrainer()->setFixedAspectRatio((double) baseW / (double) baseH);
+    border.setBorderThickness(juce::BorderSize<int>(6));
+    border.setConstrainer(getConstrainer());
+    addAndMakeVisible(border);
+    setSize(baseW, baseH);
     gate.onFrame = [this]
     {
         bandView.repaint(); pattern.repaint();
@@ -197,33 +249,45 @@ ClawpressorEditor::ClawpressorEditor(ClawpressorProcessor& p)
 void ClawpressorEditor::paint(juce::Graphics& g)
 {
     g.fillAll(catui::Colours::panel());
+    catui::drawWoodCheeks(g, getLocalBounds(), cheek);
+    catui::drawCatHead(g, { (float) cheek + 10.f, 8.f, 34.f, 34.f }, catui::SodaPop::lilac());
     g.setColour(catui::Colours::accent());
-    g.setFont(juce::FontOptions(20.f, juce::Font::bold));
-    g.drawText("Clawpressor", 12, 8, 200, 26, juce::Justification::left);
+    g.setFont(juce::FontOptions(22.f, juce::Font::bold));
+    g.drawText("Clawpressor", cheek + 52, 6, 220, 26, juce::Justification::left);
     g.setColour(catui::Colours::dim()); g.setFont(juce::FontOptions(12.f));
-    g.drawText("Rhythmic gain pattern (click a step, right click to lower)", 12, 470, 420, 16, juce::Justification::left);
+    g.drawText("Studio 87 - four band compressor with lift, saturation and width", cheek + 52, 28, 420, 16, juce::Justification::left);
+    g.drawText("Rhythmic gain pattern (click a step, right click to lower)", cheek + 10, patLabelY, 420, 16, juce::Justification::left);
+}
+
+void ClawpressorEditor::mouseDoubleClick(const juce::MouseEvent& e)
+{
+    if (e.x < cheek || e.x > getWidth() - cheek) setSize(baseW, baseH);
 }
 
 void ClawpressorEditor::resized()
 {
-    auto r = getLocalBounds().reduced(10);
-    auto top = r.removeFromTop(32);
-    presets.setBounds(top.removeFromRight(280)); presetLabel.setBounds(top.removeFromRight(50));
+    border.setBounds(getLocalBounds());
+    auto r = getLocalBounds().reduced(cheek + 8, 8);
+    auto top = r.removeFromTop(44);
+    presets.setBounds(top.removeFromRight(280).withSizeKeepingCentre(280, 28)); presetLabel.setBounds(top.removeFromRight(50));
     r.removeFromTop(4);
-    bandView.setBounds(r.removeFromTop(170));
+    bandView.setBounds(r.removeFromTop(juce::roundToInt(r.getHeight() * 0.2f)));
     r.removeFromTop(8);
-    auto row = r.removeFromTop(246);
+    auto row = r.removeFromTop(juce::roundToInt(r.getHeight() * 0.67f));
     const int w = row.getWidth() / 4;
     for (int b = 0; b < 4; ++b) panels[(size_t) b]->setBounds(row.removeFromLeft(w).reduced(3));
     r.removeFromTop(6);
+    patLabelY = r.getY();
     auto bottom = r;
-    auto left = bottom.removeFromLeft(470);
+    auto left = bottom.removeFromLeft(juce::roundToInt(bottom.getWidth() * 0.46f));
     left.removeFromTop(20);
-    pattern.setBounds(left.removeFromTop(90).reduced(0, 2));
+    pattern.setBounds(left.removeFromTop(juce::jmax(40, left.getHeight() - 34)).reduced(0, 2));
     auto ctl = left;
     speedLabel.setBounds(ctl.removeFromLeft(90).withHeight(20)); speed.setBounds(ctl.removeFromLeft(80).withHeight(24));
-    ctl.removeFromLeft(20);
+    ctl.removeFromLeft(14);
     lookLabel.setBounds(ctl.removeFromLeft(70).withHeight(20)); look.setBounds(ctl.removeFromLeft(90).withHeight(24));
+    ctl.removeFromLeft(14);
+    clip.setBounds(ctl.removeFromLeft(100).withHeight(24));
     bottom.removeFromLeft(20);
     const int kw = bottom.getWidth() / 4;
     mix.place(bottom.removeFromLeft(kw).withTrimmedBottom(10)); strength.place(bottom.removeFromLeft(kw).withTrimmedBottom(10));

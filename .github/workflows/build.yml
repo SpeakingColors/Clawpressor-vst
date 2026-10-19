@@ -27,6 +27,8 @@ jobs:
         run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release  2>&1 | tee -a ci.log; exit ${PIPESTATUS[0]}
       - name: Build
         run: cmake --build build --config Release --parallel 4 2>&1 | tee -a ci.log; exit ${PIPESTATUS[0]}
+      - name: Unit tests
+        run: ctest --test-dir build -C Release --output-on-failure
       - uses: actions/upload-artifact@v4
         with:
           name: Clawpressor-${{ runner.os }}

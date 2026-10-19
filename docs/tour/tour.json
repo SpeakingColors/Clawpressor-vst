@@ -1,0 +1,317 @@
+[
+ {
+  "n": 1,
+  "name": "Previous preset",
+  "tip": "Previous preset.",
+  "x": 449,
+  "y": 38.5
+ },
+ {
+  "n": 2,
+  "name": "Init",
+  "tip": "Open the preset list: factory presets and your own.",
+  "x": 673.3359375,
+  "y": 38
+ },
+ {
+  "n": 3,
+  "name": "Next preset",
+  "tip": "Next preset.",
+  "x": 897.671875,
+  "y": 38.5
+ },
+ {
+  "n": 4,
+  "name": "Save",
+  "tip": "Save the current settings as your own preset (stays on this device).",
+  "x": 949.6640625,
+  "y": 38.5
+ },
+ {
+  "n": 5,
+  "name": "\u22ef",
+  "tip": "Delete, export or import your presets.",
+  "x": 1005.9921875,
+  "y": 38.5
+ },
+ {
+  "n": 6,
+  "name": "Guide",
+  "tip": "Quick guide: what each view and control does.",
+  "x": 1076.203125,
+  "y": 38.5
+ },
+ {
+  "n": 7,
+  "name": "Settings",
+  "tip": "Info bubbles and eco mode.",
+  "x": 1166.0546875,
+  "y": 38.5
+ },
+ {
+  "n": 8,
+  "name": "About & Support",
+  "tip": "About Studio 87, privacy, and ways to support the project.",
+  "x": 1303.359375,
+  "y": 38.5
+ },
+ {
+  "n": 9,
+  "name": "Test signal",
+  "tip": "Pick what the preview rig plays into the plugin. 'Your file' uses the file you loaded.",
+  "x": 364.921875,
+  "y": 106
+ },
+ {
+  "n": 10,
+  "name": "Play",
+  "tip": "Start or stop the test signal. Shortcut: Space.",
+  "x": 538.046875,
+  "y": 112
+ },
+ {
+  "n": 11,
+  "name": "Load file",
+  "tip": "Load your own audio file (wav, mp3, flac, ogg). It stays in this browser tab and is never uploaded.",
+  "x": 636.65625,
+  "y": 112.5
+ },
+ {
+  "n": 12,
+  "name": "Input trim",
+  "tip": "Level into the plugin, like the gain of the track in your DAW. Factory presets expect the input to peak around -6 dB (see the marker on the meter). Double-click resets.",
+  "x": 763.6171875,
+  "y": 113
+ },
+ {
+  "n": 13,
+  "name": "Compare: bypass",
+  "tip": "Hear the unprocessed signal at the same moment, to judge what the plugin adds. This is the preview rig, not a plugin control.",
+  "x": 914.359375,
+  "y": 112.5
+ },
+ {
+  "n": 14,
+  "name": "BPM 150",
+  "tip": "Tempo the plugin gets from the host. The pattern gain follows it.",
+  "x": 1042.625,
+  "y": 120.5
+ },
+ {
+  "n": 15,
+  "name": "Bands",
+  "tip": "Spectrum before (grey line) and after (colour fill) with draggable crossover lines and the gain reduction of every band. Shortcut: 1.",
+  "x": 195.2421875,
+  "y": 169
+ },
+ {
+  "n": 16,
+  "name": "Curve",
+  "tip": "Compressor curve of the selected band: input on the bottom, output up the side. Drag the corner to set the threshold and the end to set the ratio. Shortcut: 2.",
+  "x": 363.7265625,
+  "y": 169
+ },
+ {
+  "n": 17,
+  "name": "Band scope",
+  "tip": "Waveform of the selected band: red is the original, green is after compression, grey is where they overlap. Shortcut: 3.",
+  "x": 532.2109375,
+  "y": 169
+ },
+ {
+  "n": 18,
+  "name": "GR history",
+  "tip": "Gain reduction history of every band and the master limiter. Shortcut: 4.",
+  "x": 700.6953125,
+  "y": 169
+ },
+ {
+  "n": 19,
+  "name": "Pattern",
+  "tip": "Pattern gain: draw a rhythmic volume pattern over 16 steps. Shortcut: 5.",
+  "x": 869.1796875,
+  "y": 169
+ },
+ {
+  "n": 20,
+  "name": "Bands",
+  "tip": "How many bands the signal is split into. Drag the white crossover lines in the display to move them.",
+  "x": 169,
+  "y": 623
+ },
+ {
+  "n": 21,
+  "name": "Crossover slope",
+  "tip": "Steepness of the crossover filters. Steeper keeps the bands cleaner. The plugin offers 6 to 96 dB/oct; 36 or 48 is a good start.",
+  "x": 296.8671875,
+  "y": 623
+ },
+ {
+  "n": 22,
+  "name": "Whole ratios",
+  "tip": "Snaps every ratio to whole numbers (2:1, 3:1, 4:1 ...).",
+  "x": 449.046875,
+  "y": 638
+ },
+ {
+  "n": 23,
+  "name": "S",
+  "tip": "Solo: hear only this band (and any other soloed band).",
+  "x": 319.328125,
+  "y": 695
+ },
+ {
+  "n": 24,
+  "name": "M",
+  "tip": "Mute: silence this band.",
+  "x": 345.4609375,
+  "y": 695
+ },
+ {
+  "n": 25,
+  "name": "Input",
+  "tip": "Level into this band's compressor. Double-click resets.",
+  "x": 160.4140625,
+  "y": 737
+ },
+ {
+  "n": 26,
+  "name": "Thresh",
+  "tip": "Level above which the band is compressed. Also draggable on the Curve view. Double-click resets.",
+  "x": 239.2421875,
+  "y": 737
+ },
+ {
+  "n": 27,
+  "name": "Ratio",
+  "tip": "How strongly the signal above the threshold is reduced. 'inf' makes it a limiter. Also draggable on the Curve view. Double-click resets.",
+  "x": 318.078125,
+  "y": 737
+ },
+ {
+  "n": 28,
+  "name": "Attack",
+  "tip": "How fast the compressor reacts. Short grabs transients, long lets punch through. Double-click resets.",
+  "x": 160.4140625,
+  "y": 803
+ },
+ {
+  "n": 29,
+  "name": "Release",
+  "tip": "How fast the gain comes back. With Auto on, it follows the gain reduction: more reduction, slower release. Double-click resets.",
+  "x": 239.2421875,
+  "y": 803
+ },
+ {
+  "n": 30,
+  "name": "Boost",
+  "tip": "Extra makeup gain after the compressor, on top of the automatic gain. Double-click resets.",
+  "x": 318.078125,
+  "y": 803
+ },
+ {
+  "n": 31,
+  "name": "Limit",
+  "tip": "Ceiling of this band's limiter (ratio infinity). Mockup limiter has no lookahead; the plugin will. Double-click resets.",
+  "x": 160.4140625,
+  "y": 890
+ },
+ {
+  "n": 32,
+  "name": "Lim rel",
+  "tip": "Release of this band's limiter. Double-click resets.",
+  "x": 239.2421875,
+  "y": 890
+ },
+ {
+  "n": 33,
+  "name": "Output",
+  "tip": "Level of this band after the limiter. Use it to rebalance the bands. Double-click resets.",
+  "x": 318.078125,
+  "y": 890
+ },
+ {
+  "n": 34,
+  "name": "Sat",
+  "tip": "Soft saturation of this band after the limiter (antialiased tanh). Drive and mix rise together. Warms bass and thickens leads. Double-click resets.",
+  "x": 160.4140625,
+  "y": 956
+ },
+ {
+  "n": 35,
+  "name": "Width",
+  "tip": "Stereo width of this band (mid/side). 0 makes the band mono: set the low band to 0 for a mono bass. 100 is unchanged. Double-click resets.",
+  "x": 239.2421875,
+  "y": 956
+ },
+ {
+  "n": 36,
+  "name": "Comp",
+  "tip": "Turns this band's compressor on or off. The band still passes through.",
+  "x": 146.8203125,
+  "y": 1024
+ },
+ {
+  "n": 37,
+  "name": "Auto rel",
+  "tip": "Release follows the gain reduction. The Release knob is ignored.",
+  "x": 215.296875,
+  "y": 1024
+ },
+ {
+  "n": 38,
+  "name": "Soft knee",
+  "tip": "Soft knee eases into compression around the threshold. Off is a hard knee.",
+  "x": 300.3984375,
+  "y": 1024
+ },
+ {
+  "n": 39,
+  "name": "Limiter",
+  "tip": "Turns this band's limiter on or off.",
+  "x": 153.3125,
+  "y": 1048
+ },
+ {
+  "n": 40,
+  "name": "Mix",
+  "tip": "Dry/wet of the whole plugin. 100 % is wet only. Around 75 % brings back dynamic peaks without losing much density (parallel compression). Default 50 %. Double-click resets.",
+  "x": 1201.328125,
+  "y": 205
+ },
+ {
+  "n": 41,
+  "name": "Output",
+  "tip": "Level into the master limiter. Double-click resets.",
+  "x": 1267.9921875,
+  "y": 205
+ },
+ {
+  "n": 42,
+  "name": "Post gain",
+  "tip": "Level after the master limiter. Double-click resets.",
+  "x": 1334.65625,
+  "y": 205
+ },
+ {
+  "n": 43,
+  "name": "Mstr rel",
+  "tip": "Release of the master output limiter. Double-click resets.",
+  "x": 1201.328125,
+  "y": 281
+ },
+ {
+  "n": 44,
+  "name": "Master limiter",
+  "tip": "Safety limiter at the very end, after the mix, so peaks of the dry part are caught too. Ceiling -0.3 dB.",
+  "x": 1229.9140625,
+  "y": 359
+ },
+ {
+  "n": 45,
+  "name": "Autogain",
+  "tip": "Compressors add makeup gain automatically so loudness stays about the same when you compress harder.",
+  "x": 1209.7578125,
+  "y": 385
+ }
+]

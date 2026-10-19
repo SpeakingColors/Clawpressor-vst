@@ -2,6 +2,7 @@
 #include <juce_audio_processors/juce_audio_processors.h>
 #include <juce_dsp/juce_dsp.h>
 #include "Bands.h"
+#include <claw/ClawDsp.h>
 
 class ClawpressorProcessor : public juce::AudioProcessor
 {
@@ -43,6 +44,7 @@ private:
     // so each lower band passes through allpass copies of the higher crossovers.
     juce::dsp::LinkwitzRileyFilter<float> s1, s2, s3, a2a, a3a, a3b;
     std::array<BandComp, kBands> comp;
+    std::array<claw::Adaa, kBands> satL, satR;
     DryDelay dryDelay;
     std::vector<float> bandData[kBands][2], dryData[2];
     juce::dsp::Limiter<float> limiter;

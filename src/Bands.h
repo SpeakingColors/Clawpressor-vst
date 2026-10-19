@@ -3,12 +3,15 @@
 #include <array>
 #include <cmath>
 #include <vector>
+#include <claw/ClawDsp.h>
 
 // Per band compressor: soft knee, peak detector with attack and release, boost.
 // Lookahead: the detector sees the signal now, the audio is delayed by lookSamples.
 struct BandComp
 {
     float thresholdDb = -20.f, ratio = 4.f, kneeDb = 6.f, attackMs = 5.f, releaseMs = 80.f, boostDb = 0.f;
+    float liftFloorDb = -60.f, liftRatio = 1.f; // upward compression: lift signals under the floor (1 = off)
+    float liftDb = 0.f;   // current lift in dB, for meters
     bool on = true;
     float grDb = 0.f;     // gain reduction in dB (positive), for meters
     float levelDb = -100.f; // band input level in dB, for meters
@@ -17,7 +20,7 @@ struct BandComp
 
     void prepare(double sr)
     {
-        fs = (float) sr; env = 0.f; pos = 0;
+        fs = (float) sr; env = 0.f; lift = 0.f; pos = 0;
         for (auto& r : ring) r.assign((size_t) kMaxLook, 0.f);
     }
 
@@ -47,7 +50,9 @@ struct BandComp
             const float want = on ? std::max(0.f, inDb - curve(inDb)) : 0.f;
             const float a = want > env ? aA : aR;
             env = a * env + (1.f - a) * want;
-            const float g = juce::Decibels::decibelsToGain(-env) * (on ? boost : 1.f);
+            float tu = on ? claw::upwardLiftDb(inDb, liftFloorDb, liftRatio) : 0.f;
+            lift += (tu - lift) * (tu > lift ? (1.f - aR) : (1.f - aA));
+            const float g = juce::Decibels::decibelsToGain(-env + lift) * (on ? boost : 1.f);
             for (int c = 0; c < numCh; ++c)
             {
                 auto& r = ring[(size_t) c];
@@ -57,11 +62,11 @@ struct BandComp
             }
             pos = (pos + 1) % kMaxLook;
         }
-        grDb = env;
+        grDb = env; liftDb = lift;
         levelDb = juce::Decibels::gainToDecibels(lvl, -100.f);
     }
 
-    float fs = 44100.f, env = 0.f;
+    float fs = 44100.f, env = 0.f, lift = 0.f;
     int pos = 0;
     std::array<std::vector<float>, 2> ring;
 };
