@@ -28,8 +28,8 @@
 -- Exporting juceaide
 -- Testing juceaide
 -- Finished setting up juceaide
--- Configuring done (60.5s)
--- Generating done (0.0s)
+-- Configuring done (90.4s)
+-- Generating done (0.1s)
 -- Build files have been written to: /home/runner/work/Clawpressor-vst/Clawpressor-vst/build
 [  1%] Building VST3 manifest helper for Clawpressor
 [  3%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/src/CatLookAndFeel.cpp.o
@@ -110,21 +110,21 @@ In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_d
 [ 69%] Linking CXX static library Clawpressor_artefacts/Release/libClawpressor_SharedCode.a
 [ 69%] Built target Clawpressor
 [ 71%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.cpp.o
+[ 72%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.cpp.o
 [ 74%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
-[ 74%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.cpp.o
 [ 76%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
+[ 77%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
 [ 79%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
+[ 81%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
 [ 83%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
-[ 83%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
-[ 79%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
 [ 84%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
 [ 86%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
-[ 88%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
-[ 89%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
-[ 91%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
-[ 93%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
-[ 94%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
-[ 96%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
+[ 88%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
+[ 89%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
+[ 91%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
+[ 93%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
+[ 94%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
+[ 96%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
 [ 98%] Linking CXX executable Clawpressor_artefacts/Release/Standalone/Clawpressor
 [ 98%] Built target Clawpressor_Standalone
 [100%] Linking CXX shared module Clawpressor_artefacts/Release/VST3/Clawpressor.vst3/Contents/x86_64-linux/Clawpressor.so
