@@ -5,7 +5,7 @@
 Free, open source multiband compressor and limiter for Linux (VST3). Up to 4 bands, a compressor and limiter per band, parallel dry/wet mix, drawable rhythmic gain patterns, a master limiter, live scopes and a spectrum view. Dance-ready defaults for house, UK hardcore and hardstyle.
 
 ## Status
-Planning. No plugin to download yet. Free and open source. Donations welcome (link coming).
+Planning. No plugin to download yet. Free and open source. Donations welcome: https://ko-fi.com/studio87
 
 ## Planned features
 - 1 to 4 bands, crossover slopes from 6 to 96 dB/oct, draggable band dividers, solo and mute per band
