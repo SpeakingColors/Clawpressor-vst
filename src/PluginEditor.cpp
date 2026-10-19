@@ -208,7 +208,7 @@ void BandPanel::resized()
 
 // ---------------- Editor
 ClawpressorEditor::ClawpressorEditor(ClawpressorProcessor& p)
-    : AudioProcessorEditor(&p), proc(p), bandView(p), pattern(p), border(this, nullptr)
+    : AudioProcessorEditor(&p), proc(p), bandView(p), pattern(p), border(this, &constrainer)
 {
     setLookAndFeel(&laf);
     clip.setTooltip("Smooth knee clipper at the very end (ceiling just under full scale). Keeps peaks from ever clipping the converter.");
@@ -231,11 +231,11 @@ ClawpressorEditor::ClawpressorEditor(ClawpressorProcessor& p)
     limRel.init(*this, p.apvts, "limRel", "Limiter rel", " ms");
     post.init(*this, p.apvts, "post", "Post gain", " dB");
     strength.init(*this, p.apvts, "str", "Pattern", " %");
+    constrainer.setMinimumSize(baseW / 2, baseH / 2); constrainer.setMaximumSize(baseW * 2, baseH * 2);
+    constrainer.setFixedAspectRatio((double) baseW / (double) baseH);
+    setConstrainer(&constrainer);
     setResizable(true, false);
-    setResizeLimits(baseW / 2, baseH / 2, baseW * 2, baseH * 2);
-    getConstrainer()->setFixedAspectRatio((double) baseW / (double) baseH);
     border.setBorderThickness(juce::BorderSize<int>(6));
-    border.setConstrainer(getConstrainer());
     addAndMakeVisible(border);
     setSize(baseW, baseH);
     gate.onFrame = [this]

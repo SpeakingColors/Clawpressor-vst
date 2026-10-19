@@ -103,6 +103,7 @@ private:
     juce::ToggleButton clip { "Soft clip" };
     std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> aClip;
     juce::TooltipWindow tooltip { this, 1000 };
+    juce::ComponentBoundsConstrainer constrainer;
     juce::ResizableBorderComponent border;
     int patLabelY = 600;
     juce::Label presetLabel { {}, "Preset" }, lookLabel { {}, "Lookahead" }, speedLabel { {}, "Pattern speed" };
