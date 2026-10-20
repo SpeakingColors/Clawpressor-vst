@@ -1,14 +1,13 @@
 #pragma once
 #include <juce_audio_processors/juce_audio_processors.h>
-#include <juce_dsp/juce_dsp.h>
-#include "Bands.h"
-#include <claw/ClawDsp.h>
+#include <claw/ClawEngine.h>
+#include "Presets.h"
 
 class ClawpressorProcessor : public juce::AudioProcessor
 {
 public:
-    static constexpr int kBands = 4, kSteps = 16;
     ClawpressorProcessor();
+    ~ClawpressorProcessor() override;
     void prepareToPlay(double sampleRate, int blockSize) override;
     void releaseResources() override {}
     bool isBusesLayoutSupported(const BusesLayout&) const override;
@@ -19,38 +18,40 @@ public:
     bool acceptsMidi() const override { return false; }
     bool producesMidi() const override { return false; }
     double getTailLengthSeconds() const override { return 0.0; }
-    int getNumPrograms() override;
+    int getNumPrograms() override { return (int) factory.size(); }
     int getCurrentProgram() override { return program; }
     void setCurrentProgram(int) override;
-    const juce::String getProgramName(int) override;
+    const juce::String getProgramName(int i) override { return juce::isPositiveAndBelow(i, (int) factory.size()) ? factory[(size_t) i].name : juce::String(); }
     void changeProgramName(int, const juce::String&) override {}
     void getStateInformation(juce::MemoryBlock&) override;
     void setStateInformation(const void*, int) override;
 
-    juce::AudioProcessorValueTreeState apvts;
-    // read by the editor (meters), written by the audio thread
-    std::array<std::atomic<float>, kBands> grMeter {}, lvMeter {};
-    std::atomic<int> patStep { 0 };
-    std::atomic<float> masterGr { 0.f };
-
-    static const char* lookNames[];
-    static constexpr float lookMs[5] = { 0.f, 1.f, 2.5f, 5.f, 7.5f };
-private:
-    static juce::AudioProcessorValueTreeState::ParameterLayout layout();
-    void applyPreset(int);
+    // presets: factory list, user presets are small XML files in Studio 87/Clawpressor/presets
+    void applyValues(const claw::Values&, const juce::String& name);
+    juce::File userDir() const;
+    juce::StringArray userPresetNames() const;
+    bool saveUserPreset(const juce::String& name);
+    bool loadUserPreset(const juce::String& name);
+    bool deleteUserPreset(const juce::String& name);
+    juce::String presetName() const { return apvts.state.getProperty("preset", factory.empty() ? juce::String() : factory[0].name).toString(); }
+    const std::vector<claw::Preset>& factoryList() const { return factory; }
+    bool tipsOn() const { return (bool) apvts.state.getProperty("tips", true); }
+    void setTipsOn(bool v) { apvts.state.setProperty("tips", v, nullptr); }
     float get(const juce::String& id) const { return apvts.getRawParameterValue(id)->load(); }
 
-    // Phase-aligned 4-band Linkwitz-Riley split. LP + HP of one LR4 filter is an allpass,
-    // so each lower band passes through allpass copies of the higher crossovers.
-    juce::dsp::LinkwitzRileyFilter<float> s1, s2, s3, a2a, a3a, a3b;
-    std::array<BandComp, kBands> comp;
-    std::array<claw::Adaa, kBands> satL, satR;
-    DryDelay dryDelay;
-    std::vector<float> bandData[kBands][2], dryData[2];
-    juce::dsp::Limiter<float> limiter;
-    double fs = 44100.0;
-    int maxBlock = 0, program = 0, lastLatency = -1;
-    double freePpq = 0.0;
-    float patGain = 1.f;
+    juce::AudioProcessorValueTreeState apvts;
+    claw::Engine engine;
+    std::atomic<double> hostBpm { 120.0 };
+    std::atomic<bool> hostPlaying { false };
+
+private:
+    static juce::AudioProcessorValueTreeState::ParameterLayout layout();
+    void pullParams();
+    struct Ptrs;
+    std::unique_ptr<Ptrs> ptrs;
+    std::vector<claw::Preset> factory = claw::factoryPresets();
+    int program = 0;
+    double fs = 44100.0, freeBeat = 0.0;
+    std::vector<float> tmpR;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ClawpressorProcessor)
 };
