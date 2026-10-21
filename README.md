@@ -4,6 +4,10 @@
 
 Free, open source multiband compressor and limiter for Linux (VST3). Up to 4 bands, a compressor and limiter per band, parallel dry/wet mix, drawable rhythmic gain patterns, a master limiter, live scopes and a spectrum view. Dance-ready defaults for house, UK hardcore and hardstyle.
 
+<p align="center"><img src="docs/screenshot.png" alt="Clawpressor editor" width="900"><br><sub>Screenshot of the interactive mockup in docs/mockups.</sub></p>
+
+**Manual:** [PDF, opens in the browser](https://github.com/SpeakingColors/Clawpressor-vst/blob/main/docs/Clawpressor-vst-manual.pdf)
+
 ## Status
 v0.2.0: the plugin window is built from the approved design mockup (five views: Bands, Curve, Band scope, GR history, Pattern). Compression, per band limiter, saturation, width, pattern gain, two modulation lanes and a 64 sample lookahead master limiter (reported as latency). Every control is a host parameter. 13 factory presets plus your own (Save). Not yet tested in a DAW by the author.
 
