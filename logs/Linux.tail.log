@@ -1,5 +1,20 @@
-[  4%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/src/CatLookAndFeel.cpp.o
--- The CXX compiler identification is GNU 13.3.0
+CMake Warning at build/_deps/juce-src/extras/Build/CMake/JUCEUtils.cmake:1769 (message):
+  Target Clawpressor has JUCE_BUNDLE_ID 'com.Studio 87.Clawpressor', which
+  contains spaces.  Use the BUNDLE_ID option to specify a valid ID.
+Call Stack (most recent call first):
+  build/_deps/juce-src/extras/Build/CMake/JUCEUtils.cmake:2165 (_juce_set_fallback_properties)
+  build/_deps/juce-src/extras/Build/CMake/JUCEUtils.cmake:2248 (_juce_initialise_target)
+  CMakeLists.txt:11 (juce_add_plugin)
+
+
+-- Configuring done (70.8s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/runner/work/Clawpressor-vst/Clawpressor-vst/build
+[  1%] Building VST3 manifest helper for Clawpressor
+[  3%] Building CXX object CMakeFiles/claw_dsp_test.dir/tests/dsp_test.cpp.o
+[  6%] Building CXX object CMakeFiles/claw_engine_test.dir/tests/engine_test.cpp.o
+[  6%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/src/CatLookAndFeel.cpp.o
+-- The CXX compiler identification is GNU 15.2.0
 -- Detecting CXX compiler ABI info
 -- Detecting CXX compiler ABI info - done
 -- Check for working CXX compiler: /usr/bin/c++ - skipped
@@ -8,15 +23,14 @@
 -- Configuring done (0.2s)
 -- Generating done (0.0s)
 -- Build files have been written to: /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/vst3_helpers/Clawpressor
-gmake[3]: warning: jobserver unavailable: using -j1.  Add '+' to parent make rule.
 [ 50%] Building CXX object CMakeFiles/vst3_helper.dir/home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_audio_plugin_client/VST3/juce_VST3ManifestHelper.cpp.o
 [  7%] Linking CXX executable claw_dsp_test
 [  7%] Built target claw_dsp_test
 [  9%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/src/CatFrame.cpp.o
 [ 11%] Linking CXX executable claw_engine_test
-[100%] Linking CXX executable vst3_helper
 [ 11%] Built target claw_engine_test
 [ 12%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_gui_basics/juce_gui_basics.cpp.o
+[100%] Linking CXX executable vst3_helper
 [100%] Built target vst3_helper
 [ 12%] Built target Clawpressor_vst3_helper
 [ 14%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_gui_basics/juce_gui_basics_2.cpp.o
@@ -32,7 +46,7 @@ gmake[3]: warning: jobserver unavailable: using -j1.  Add '+' to parent make rul
 [ 30%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/__/juce-src/modules/juce_data_structures/juce_data_structures.cpp.o
 [ 31%] Linking CXX static library libcat_ui.a
 [ 31%] Built target cat_ui
-[ 33%] Building CXX object CMakeFiles/Clawpressor.dir/src/PluginProcessor.cpp.o
+[ 34%] Building CXX object CMakeFiles/Clawpressor.dir/src/PluginProcessor.cpp.o
 [ 34%] Building CXX object CMakeFiles/Clawpressor.dir/src/PluginEditor.cpp.o
 [ 36%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.cpp.o
 [ 38%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.cpp.o
@@ -247,16 +261,6 @@ In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_d
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.h:14:10: note:   by ‘virtual void ClawpressorProcessor::processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&)’
    14 |     void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
       |          ^~~~~~~~~~~~
-/home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.cpp: In member function ‘void ClawpressorProcessor::pullParams()’:
-/home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.cpp:131:48: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
-  131 |     if (nb != P.nb || slope != P.slope || x[0] != P.x[0] || x[1] != P.x[1] || x[2] != P.x[2]) engine.markDirty();
-      |                                           ~~~~~^~~~~~~~~
-/home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.cpp:131:66: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
-  131 |     if (nb != P.nb || slope != P.slope || x[0] != P.x[0] || x[1] != P.x[1] || x[2] != P.x[2]) engine.markDirty();
-      |                                                             ~~~~~^~~~~~~~~
-/home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.cpp:131:84: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
-  131 |     if (nb != P.nb || slope != P.slope || x[0] != P.x[0] || x[1] != P.x[1] || x[2] != P.x[2]) engine.markDirty();
-      |                                                                               ~~~~~^~~~~~~~~
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginEditor.cpp: In constructor ‘clawui::Tog::Tog(clawui::Shared&, const juce::String&, const juce::String&, const juce::String&)’:
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginEditor.cpp:282:54: warning: declaration of ‘text’ shadows a member of ‘clawui::Tog’ [-Wshadow]
   282 | Tog::Tog(Shared& sh, const String& id, const String& text, const String& tip) : juce::TextButton(text)
@@ -264,20 +268,6 @@ In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_d
 In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.h:229,
                  from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_gui_extra/juce_gui_extra.h:68,
                  from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.h:65:
-/home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_gui_basics/buttons/juce_Button.h:514:12: note: shadowed declaration is here
-  514 |     String text;
-      |            ^~~~
-/home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginEditor.cpp: In constructor ‘clawui::Tog::Tog(clawui::Shared&, const juce::String&, const juce::String&, const juce::String&)’:
-/home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginEditor.cpp:282:54: warning: declaration of ‘text’ shadows a member of ‘clawui::Tog’ [-Wshadow]
-  282 | Tog::Tog(Shared& sh, const String& id, const String& text, const String& tip) : juce::TextButton(text)
-      |                                        ~~~~~~~~~~~~~~^~~~
-/home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_gui_basics/buttons/juce_Button.h:514:12: note: shadowed declaration is here
-  514 |     String text;
-      |            ^~~~
-/home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginEditor.cpp: In constructor ‘clawui::Tog::Tog(clawui::Shared&, const juce::String&, const juce::String&, const juce::String&)’:
-/home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginEditor.cpp:282:54: warning: declaration of ‘text’ shadows a member of ‘clawui::Tog’ [-Wshadow]
-  282 | Tog::Tog(Shared& sh, const String& id, const String& text, const String& tip) : juce::TextButton(text)
-      |                                        ~~~~~~~~~~~~~~^~~~
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_gui_basics/buttons/juce_Button.h:514:12: note: shadowed declaration is here
   514 |     String text;
       |            ^~~~
@@ -327,6 +317,16 @@ In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_d
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginEditor.cpp:388:109: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
   388 |             T(g, f >= 1000 ? String((int) (f / 1000)) + "k" : String((int) f), x, h - 17.f, f == 20 ? 0 : f == 20000 ? 2 : 1, 0, monoFont(11.f), cAxisX);
       |                                                                                                           ~~^~~~~~~~
+/home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.cpp: In member function ‘void ClawpressorProcessor::pullParams()’:
+/home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.cpp:131:48: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
+  131 |     if (nb != P.nb || slope != P.slope || x[0] != P.x[0] || x[1] != P.x[1] || x[2] != P.x[2]) engine.markDirty();
+      |                                           ~~~~~^~~~~~~~~
+/home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.cpp:131:66: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
+  131 |     if (nb != P.nb || slope != P.slope || x[0] != P.x[0] || x[1] != P.x[1] || x[2] != P.x[2]) engine.markDirty();
+      |                                                             ~~~~~^~~~~~~~~
+/home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.cpp:131:84: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
+  131 |     if (nb != P.nb || slope != P.slope || x[0] != P.x[0] || x[1] != P.x[1] || x[2] != P.x[2]) engine.markDirty();
+      |                                                                               ~~~~~^~~~~~~~~
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginEditor.cpp: In member function ‘void clawui::DisplayView::drawBands(juce::Graphics&, float, float)’:
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginEditor.cpp:467:28: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
   467 |         g.setColour(Colour(hot ? 0xffffffff : 0xccffffff)); g.drawLine(x, top, x, h - 22.f, 1.6f);
@@ -345,8 +345,6 @@ In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_d
       |                                         ^~~~
 [ 39%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.cpp.o
 [ 41%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics_2.cpp.o
-[ 42%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics_3.cpp.o
-[ 44%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics_4.cpp.o
 In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_core/system/juce_StandardHeader.h:108,
                  from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_core/juce_core.h:215,
                  from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_graphics/juce_graphics.h:67,
@@ -358,6 +356,8 @@ In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_d
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.cpp:61:2: note: in expansion of macro ‘JUCE_COMPILER_WARNING’
    61 |  JUCE_COMPILER_WARNING ("This version of JUCE does not use the splash screen, the flag JUCE_DISPLAY_SPLASH_SCREEN is ignored")
       |  ^~~~~~~~~~~~~~~~~~~~~
+[ 42%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics_3.cpp.o
+[ 44%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics_4.cpp.o
 [ 46%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics_5.cpp.o
 [ 47%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_graphics/juce_graphics.cpp.o
 [ 49%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_graphics/juce_graphics_Harfbuzz.cpp.o
@@ -377,20 +377,20 @@ In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_d
 [ 71%] Linking CXX static library Clawpressor_artefacts/Release/libClawpressor_SharedCode.a
 [ 71%] Built target Clawpressor
 [ 73%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.cpp.o
-[ 74%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.cpp.o
+[ 76%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.cpp.o
 [ 76%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
 [ 77%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
-[ 79%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
-[ 80%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
-[ 82%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
-[ 84%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
-[ 87%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
+[ 79%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
+[ 80%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
+[ 82%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
+[ 84%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
+[ 87%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
 [ 87%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
-[ 88%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
+[ 88%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
 [ 90%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
-[ 93%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
-[ 93%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
-[ 95%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
+[ 92%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
+[ 93%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
+[ 95%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
 [ 96%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
 [ 98%] Linking CXX executable Clawpressor_artefacts/Release/Standalone/Clawpressor
 [ 98%] Built target Clawpressor_Standalone
