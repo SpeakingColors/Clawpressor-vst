@@ -1,5 +1,7 @@
 # Clawpressor 🐈
 
+<p align="center"><a href="https://ko-fi.com/studio87"><img src="https://raw.githubusercontent.com/SpeakingColors/.github/main/assets/kofi-banner.svg" alt="Support Studio 87 on Ko-fi" width="440"></a></p>
+
 <img src="assets/icon.svg" width="96" align="right" alt="icon">
 
 Free, open source multiband compressor and limiter for Linux (VST3). Up to 4 bands, a compressor and limiter per band, parallel dry/wet mix, drawable rhythmic gain patterns, a master limiter, live scopes and a spectrum view. Dance-ready defaults for house, UK hardcore and hardstyle.
