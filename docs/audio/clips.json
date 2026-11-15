@@ -1,0 +1,65 @@
+[
+  {
+    "before": "clawpressor-vst-before-drums.mp3",
+    "after": "clawpressor-vst-after-drums-hardstyle-lock.mp3",
+    "preset": "Hardstyle Lock",
+    "source": "Drum loop",
+    "description": "Drum loop through the real Clawpressor C++ engine with the factory preset Hardstyle Lock. The After clip is level matched to the Before clip (-4.7 dB)."
+  },
+  {
+    "before": "clawpressor-vst-before-bass.mp3",
+    "after": "clawpressor-vst-after-bass-hardstyle-lock.mp3",
+    "preset": "Hardstyle Lock",
+    "source": "Bass line",
+    "description": "Bass line through the real Clawpressor C++ engine with the factory preset Hardstyle Lock. The After clip is level matched to the Before clip (-4.8 dB)."
+  },
+  {
+    "before": "clawpressor-vst-before-mix.mp3",
+    "after": "clawpressor-vst-after-mix-hardstyle-lock.mp3",
+    "preset": "Hardstyle Lock",
+    "source": "Full mix loop",
+    "description": "Full mix loop through the real Clawpressor C++ engine with the factory preset Hardstyle Lock. The After clip is level matched to the Before clip (-5.7 dB)."
+  },
+  {
+    "before": "clawpressor-vst-before-drums.mp3",
+    "after": "clawpressor-vst-after-drums-pump-4x4-pattern.mp3",
+    "preset": "Pump 4x4 (pattern)",
+    "source": "Drum loop",
+    "description": "Drum loop through the real Clawpressor C++ engine with the factory preset Pump 4x4 (pattern). The After clip is level matched to the Before clip (+4.8 dB)."
+  },
+  {
+    "before": "clawpressor-vst-before-bass.mp3",
+    "after": "clawpressor-vst-after-bass-pump-4x4-pattern.mp3",
+    "preset": "Pump 4x4 (pattern)",
+    "source": "Bass line",
+    "description": "Bass line through the real Clawpressor C++ engine with the factory preset Pump 4x4 (pattern). The After clip is level matched to the Before clip (-0.9 dB)."
+  },
+  {
+    "before": "clawpressor-vst-before-mix.mp3",
+    "after": "clawpressor-vst-after-mix-pump-4x4-pattern.mp3",
+    "preset": "Pump 4x4 (pattern)",
+    "source": "Full mix loop",
+    "description": "Full mix loop through the real Clawpressor C++ engine with the factory preset Pump 4x4 (pattern). The After clip is level matched to the Before clip (+1.1 dB)."
+  },
+  {
+    "before": "clawpressor-vst-before-drums.mp3",
+    "after": "clawpressor-vst-after-drums-upward-starter-ott-style.mp3",
+    "preset": "Upward Starter (OTT style)",
+    "source": "Drum loop",
+    "description": "Drum loop through the real Clawpressor C++ engine with the factory preset Upward Starter (OTT style). The After clip is level matched to the Before clip (-1.8 dB)."
+  },
+  {
+    "before": "clawpressor-vst-before-bass.mp3",
+    "after": "clawpressor-vst-after-bass-upward-starter-ott-style.mp3",
+    "preset": "Upward Starter (OTT style)",
+    "source": "Bass line",
+    "description": "Bass line through the real Clawpressor C++ engine with the factory preset Upward Starter (OTT style). The After clip is level matched to the Before clip (-1.6 dB)."
+  },
+  {
+    "before": "clawpressor-vst-before-mix.mp3",
+    "after": "clawpressor-vst-after-mix-upward-starter-ott-style.mp3",
+    "preset": "Upward Starter (OTT style)",
+    "source": "Full mix loop",
+    "description": "Full mix loop through the real Clawpressor C++ engine with the factory preset Upward Starter (OTT style). The After clip is level matched to the Before clip (-2.6 dB)."
+  }
+]
