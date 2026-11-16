@@ -1311,6 +1311,7 @@ void ClawpressorEditor::showAbout()
         { B::H, "Support" }, { B::P, "If it helps your music, a coffee on Ko-fi keeps new plugins coming." } });
     c->addButton("Support Studio 87 on Ko-fi", [] { juce::URL("https://ko-fi.com/studio87").launchInDefaultBrowser(); });
     c->addButton(studio87link::buttonText(), [] { studio87link::openUpdater("Clawpressor-vst"); }, false, String(studio87link::buttonText()) + "\n" + studio87link::tipText());
+    c->addButton(studio87link::githubButtonText(), [] { studio87link::openGitHub("Clawpressor-vst"); }, false, String(studio87link::githubButtonText()) + "\n" + studio87link::githubTipText());
     c->addButton("GitHub", [] { juce::URL("https://github.com/SpeakingColors/Clawpressor-vst").launchInDefaultBrowser(); });
     c->addButton("Close", [this] { if (card) card->onClose(); }, true); showCard(std::move(c));
     applyTips();   // the About button bubbles follow the Info bubbles setting
