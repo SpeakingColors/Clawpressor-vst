@@ -4,12 +4,12 @@ Call Stack (most recent call first):
   CMakeLists.txt:11 (juce_add_plugin)
 
 
--- Configuring done (75.4s)
+-- Configuring done (92.6s)
 -- Generating done (0.0s)
 -- Build files have been written to: /home/runner/work/Clawpressor-vst/Clawpressor-vst/build
 [  1%] Building VST3 manifest helper for Clawpressor
-[  4%] Building CXX object CMakeFiles/claw_dsp_test.dir/tests/dsp_test.cpp.o
-[  4%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/src/CatLookAndFeel.cpp.o
+[  3%] Building CXX object _deps/cat_ui-build/CMakeFiles/cat_ui.dir/src/CatLookAndFeel.cpp.o
+[  6%] Building CXX object CMakeFiles/claw_dsp_test.dir/tests/dsp_test.cpp.o
 [  6%] Building CXX object CMakeFiles/claw_engine_test.dir/tests/engine_test.cpp.o
 -- The CXX compiler identification is GNU 15.2.0
 -- Detecting CXX compiler ABI info
@@ -17,7 +17,7 @@ Call Stack (most recent call first):
 -- Check for working CXX compiler: /usr/bin/c++ - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
--- Configuring done (0.2s)
+-- Configuring done (0.3s)
 -- Generating done (0.0s)
 -- Build files have been written to: /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/vst3_helpers/Clawpressor
 [ 50%] Building CXX object CMakeFiles/vst3_helper.dir/home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_audio_plugin_client/VST3/juce_VST3ManifestHelper.cpp.o
@@ -125,9 +125,6 @@ In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/Plug
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h:164:46: warning: conversion to ‘std::array<claw::Engine::Adaa, 4>::size_type’ {aka ‘long unsigned int’} from ‘int’ may change the sign of the result [-Wsign-conversion]
   164 |                 else { ad[b].sync(0, yl); ad[b].sync(1, yr); }
       |                                              ^
-/home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h:168:24: warning: conversion to ‘std::array<std::array<float, 8192>, 4>::size_type’ {aka ‘long unsigned int’} from ‘int’ may change the sign of the result [-Wsign-conversion]
-  168 |                 scopeB[b][(size_t) (sidx & (kScope - 1))] = (float) ((yl + yr) * 0.5);
-      |                        ^
 In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.h:3,
                  from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginEditor.h:3,
                  from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginEditor.cpp:1:
@@ -135,6 +132,9 @@ In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/Plug
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h:82:84: warning: conversion to ‘std::array<claw::BandP, 4>::size_type’ {aka ‘long unsigned int’} from ‘int’ may change the sign of the result [-Wsign-conversion]
    82 |         bool anySolo = false; for (int b = 0; b < 4; ++b) anySolo = anySolo || p.b[b].solo;
       |                                                                                    ^
+/home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h:168:24: warning: conversion to ‘std::array<std::array<float, 8192>, 4>::size_type’ {aka ‘long unsigned int’} from ‘int’ may change the sign of the result [-Wsign-conversion]
+  168 |                 scopeB[b][(size_t) (sidx & (kScope - 1))] = (float) ((yl + yr) * 0.5);
+      |                        ^
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h:86:33: warning: conversion to ‘std::array<claw::BandP, 4>::size_type’ {aka ‘long unsigned int’} from ‘int’ may change the sign of the result [-Wsign-conversion]
    86 |             const auto& q = p.b[b];
       |                                 ^
@@ -144,12 +144,6 @@ In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/Plug
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h:78:35: note: shadowed declaration is here
    78 |     void process(float* L, float* R, int n, double beat0, double bpm)
       |                            ~~~~~~~^
-/home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h:102:34: warning: conversion to ‘std::array<claw::LaneP, 2>::size_type’ {aka ‘long unsigned int’} from ‘int’ may change the sign of the result [-Wsign-conversion]
-  102 |             const int t = p.lane[li].tgt; tgtKind[li] = t < 3 ? t : 3 + ((t - 3) & 3); tgtBand[li] = t < 3 ? 0 : clampi((t - 3) >> 2, 0, 3);
-      |                                  ^~
-/home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h:115:41: warning: conversion to ‘std::array<claw::LaneP, 2>::size_type’ {aka ‘long unsigned int’} from ‘int’ may change the sign of the result [-Wsign-conversion]
-  115 |                 const auto& ln = p.lane[li];
-      |                                         ^~
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h:195:55: warning: conversion to ‘std::array<std::atomic<float>, 4>::size_type’ {aka ‘long unsigned int’} from ‘int’ may change the sign of the result [-Wsign-conversion]
   195 |         for (int b = 0; b < 4; ++b) { raise(meters.gr[b], grMax[b]); raise(meters.lgr[b], lgMax[b]); raise(meters.lvl[b], lvlMax[b]); }
       |                                                       ^
@@ -159,6 +153,12 @@ In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/Plug
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h:195:119: warning: conversion to ‘std::array<std::atomic<float>, 4>::size_type’ {aka ‘long unsigned int’} from ‘int’ may change the sign of the result [-Wsign-conversion]
   195 |         for (int b = 0; b < 4; ++b) { raise(meters.gr[b], grMax[b]); raise(meters.lgr[b], lgMax[b]); raise(meters.lvl[b], lvlMax[b]); }
       |                                                                                                                       ^
+/home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h:102:34: warning: conversion to ‘std::array<claw::LaneP, 2>::size_type’ {aka ‘long unsigned int’} from ‘int’ may change the sign of the result [-Wsign-conversion]
+  102 |             const int t = p.lane[li].tgt; tgtKind[li] = t < 3 ? t : 3 + ((t - 3) & 3); tgtBand[li] = t < 3 ? 0 : clampi((t - 3) >> 2, 0, 3);
+      |                                  ^~
+/home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h:115:41: warning: conversion to ‘std::array<claw::LaneP, 2>::size_type’ {aka ‘long unsigned int’} from ‘int’ may change the sign of the result [-Wsign-conversion]
+  115 |                 const auto& ln = p.lane[li];
+      |                                         ^~
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h:126:39: warning: conversion to ‘std::array<double, 4>::size_type’ {aka ‘long unsigned int’} from ‘int’ may change the sign of the result [-Wsign-conversion]
   126 |                 const double gi = gIn[b] += (q.gIn * lmIn[b] - gIn[b]) * sm, go = gOut[b] += (q.gOut * lmOutB[b] - gOut[b]) * sm;
       |                                       ^
@@ -177,12 +177,20 @@ In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/Plug
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h:132:32: warning: conversion to ‘std::array<double, 4>::size_type’ {aka ‘long unsigned int’} from ‘int’ may change the sign of the result [-Wsign-conversion]
   132 |                 double g_ = gr[b];
       |                                ^
+/home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h: In member function ‘void claw::Engine::tune(int, bool, double)’:
+/home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h:224:27: warning: conversion to ‘std::array<claw::Engine::Chain, 12>::size_type’ {aka ‘long unsigned int’} from ‘int’ may change the sign of the result [-Wsign-conversion]
+  224 |         auto& ch = chains[idx]; ch.count = p.slope == 48 ? 4 : 2;
+      |                           ^~~
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h:140:24: warning: conversion to ‘std::array<double, 4>::size_type’ {aka ‘long unsigned int’} from ‘int’ may change the sign of the result [-Wsign-conversion]
   140 |                     gr[b] = g_;
       |                        ^
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h:141:37: warning: conversion to ‘std::array<double, 4>::size_type’ {aka ‘long unsigned int’} from ‘int’ may change the sign of the result [-Wsign-conversion]
   141 |                     double gu_ = gu[b], tu = 0;
       |                                     ^
+/home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h: In member function ‘double claw::Engine::run(int, double, int)’:
+/home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h:234:62: warning: conversion to ‘std::array<claw::Engine::Chain, 12>::size_type’ {aka ‘long unsigned int’} from ‘int’ may change the sign of the result [-Wsign-conversion]
+  234 |     double run(int idx, double x, int c) { auto& ch = chains[idx]; for (int i = 0; i < ch.count; ++i) { auto& s = ch.s[i]; const double y = s.b0 * x + s.z[c][0]; s.z[c][0] = s.b1 * x - s.a1 * y + s.z[c][1]; s.z[c][1] = s.b2 * x - s.a2 * y; x = y; } return x; }
+      |                                                              ^~~
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h:144:24: warning: conversion to ‘std::array<double, 4>::size_type’ {aka ‘long unsigned int’} from ‘int’ may change the sign of the result [-Wsign-conversion]
   144 |                     gu[b] = gu_;
       |                        ^
@@ -204,10 +212,6 @@ In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/Plug
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h:161:45: warning: conversion to ‘std::array<claw::Engine::Adaa, 4>::size_type’ {aka ‘long unsigned int’} from ‘int’ may change the sign of the result [-Wsign-conversion]
   161 |                     yl = yl * (1 - sa) + ad[b].tick(0, yl * gd) / std::sqrt(gd) * sa;
       |                                             ^
-/home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h: In member function ‘void claw::Engine::tune(int, bool, double)’:
-/home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h:224:27: warning: conversion to ‘std::array<claw::Engine::Chain, 12>::size_type’ {aka ‘long unsigned int’} from ‘int’ may change the sign of the result [-Wsign-conversion]
-  224 |         auto& ch = chains[idx]; ch.count = p.slope == 48 ? 4 : 2;
-      |                           ^~~
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h:162:45: warning: conversion to ‘std::array<claw::Engine::Adaa, 4>::size_type’ {aka ‘long unsigned int’} from ‘int’ may change the sign of the result [-Wsign-conversion]
   162 |                     yr = yr * (1 - sa) + ad[b].tick(1, yr * gd) / std::sqrt(gd) * sa;
       |                                             ^
@@ -220,10 +224,6 @@ In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/Plug
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h:168:24: warning: conversion to ‘std::array<std::array<float, 8192>, 4>::size_type’ {aka ‘long unsigned int’} from ‘int’ may change the sign of the result [-Wsign-conversion]
   168 |                 scopeB[b][(size_t) (sidx & (kScope - 1))] = (float) ((yl + yr) * 0.5);
       |                        ^
-/home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h: In member function ‘double claw::Engine::run(int, double, int)’:
-/home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h:234:62: warning: conversion to ‘std::array<claw::Engine::Chain, 12>::size_type’ {aka ‘long unsigned int’} from ‘int’ may change the sign of the result [-Wsign-conversion]
-  234 |     double run(int idx, double x, int c) { auto& ch = chains[idx]; for (int i = 0; i < ch.count; ++i) { auto& s = ch.s[i]; const double y = s.b0 * x + s.z[c][0]; s.z[c][0] = s.b1 * x - s.a1 * y + s.z[c][1]; s.z[c][1] = s.b2 * x - s.a2 * y; x = y; } return x; }
-      |                                                              ^~~
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/include/claw/ClawEngine.h:195:55: warning: conversion to ‘std::array<std::atomic<float>, 4>::size_type’ {aka ‘long unsigned int’} from ‘int’ may change the sign of the result [-Wsign-conversion]
   195 |         for (int b = 0; b < 4; ++b) { raise(meters.gr[b], grMax[b]); raise(meters.lgr[b], lgMax[b]); raise(meters.lvl[b], lvlMax[b]); }
       |                                                       ^
@@ -271,16 +271,6 @@ In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_d
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_gui_basics/buttons/juce_Button.h:514:12: note: shadowed declaration is here
   514 |     String text;
       |            ^~~~
-/home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.cpp: In member function ‘void ClawpressorProcessor::pullParams()’:
-/home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.cpp:131:48: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
-  131 |     if (nb != P.nb || slope != P.slope || x[0] != P.x[0] || x[1] != P.x[1] || x[2] != P.x[2]) engine.markDirty();
-      |                                           ~~~~~^~~~~~~~~
-/home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.cpp:131:66: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
-  131 |     if (nb != P.nb || slope != P.slope || x[0] != P.x[0] || x[1] != P.x[1] || x[2] != P.x[2]) engine.markDirty();
-      |                                                             ~~~~~^~~~~~~~~
-/home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.cpp:131:84: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
-  131 |     if (nb != P.nb || slope != P.slope || x[0] != P.x[0] || x[1] != P.x[1] || x[2] != P.x[2]) engine.markDirty();
-      |                                                                               ~~~~~^~~~~~~~~
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginEditor.cpp: In function ‘void clawui::{anonymous}::drawGrid(juce::Graphics&, float, float, float)’:
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginEditor.cpp:387:24: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
   387 |         g.setColour((f == 100 || f == 1000 || f == 10000) ? Colour(0xff25302f) : Colour(0xff161f1e)); g.drawLine(x, top, x, h - 22.f, 1.f);
@@ -343,6 +333,16 @@ In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_d
 /home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginEditor.cpp:584:41: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
   584 |         if (k < 4 && k >= nb) continue; auto& H = sh.hist[k]; if (H.empty()) continue;
       |                                         ^~~~
+/home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.cpp: In member function ‘void ClawpressorProcessor::pullParams()’:
+/home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.cpp:131:48: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
+  131 |     if (nb != P.nb || slope != P.slope || x[0] != P.x[0] || x[1] != P.x[1] || x[2] != P.x[2]) engine.markDirty();
+      |                                           ~~~~~^~~~~~~~~
+/home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.cpp:131:66: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
+  131 |     if (nb != P.nb || slope != P.slope || x[0] != P.x[0] || x[1] != P.x[1] || x[2] != P.x[2]) engine.markDirty();
+      |                                                             ~~~~~^~~~~~~~~
+/home/runner/work/Clawpressor-vst/Clawpressor-vst/src/PluginProcessor.cpp:131:84: warning: comparing floating-point with ‘==’ or ‘!=’ is unsafe [-Wfloat-equal]
+  131 |     if (nb != P.nb || slope != P.slope || x[0] != P.x[0] || x[1] != P.x[1] || x[2] != P.x[2]) engine.markDirty();
+      |                                                                               ~~~~~^~~~~~~~~
 [ 41%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics.cpp.o
 [ 43%] Building CXX object CMakeFiles/Clawpressor.dir/_deps/juce-src/modules/juce_gui_basics/juce_gui_basics_2.cpp.o
 In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_deps/juce-src/modules/juce_core/system/juce_StandardHeader.h:108,
@@ -377,21 +377,21 @@ In file included from /home/runner/work/Clawpressor-vst/Clawpressor-vst/build/_d
 [ 72%] Linking CXX static library Clawpressor_artefacts/Release/libClawpressor_SharedCode.a
 [ 72%] Built target Clawpressor
 [ 73%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.cpp.o
+[ 75%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.cpp.o
 [ 76%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
-[ 76%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.cpp.o
 [ 78%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
 [ 80%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
-[ 83%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
+[ 81%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
 [ 83%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
-[ 84%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
-[ 87%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
-[ 87%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
-[ 89%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
-[ 90%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
-[ 92%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
-[ 93%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
-[ 95%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
-[ 96%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
+[ 84%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
+[ 89%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
+[ 89%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
+[ 89%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
+[ 90%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
+[ 93%] Building CXX object CMakeFiles/Clawpressor_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
+[ 93%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
+[ 95%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
+[ 96%] Building CXX object CMakeFiles/Clawpressor_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
 [ 98%] Linking CXX executable Clawpressor_artefacts/Release/Standalone/Clawpressor
 [ 98%] Built target Clawpressor_Standalone
 [100%] Linking CXX shared module Clawpressor_artefacts/Release/VST3/Clawpressor.vst3/Contents/x86_64-linux/Clawpressor.so
