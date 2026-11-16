@@ -180,7 +180,7 @@ public:
     Card();
     struct Block { enum Kind { H, P, Li } kind; String text; };
     void setContent(const String& title, std::vector<Block> blocks);
-    void addButton(const String& text, std::function<void()> fn, bool primary = false);
+    void addButton(const String& text, std::function<void()> fn, bool primary = false, const String& tip = {});
     void addInput(const String& initial);
     void addToggleRow(const String& text, bool initial, std::function<void(bool)> fn);
     String inputText() const { return input ? input->getText() : String(); }

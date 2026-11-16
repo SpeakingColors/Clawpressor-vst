@@ -1,4 +1,5 @@
 #include "PluginEditor.h"
+#include "Studio87Link.h"
 #include <cmath>
 #include <cstdlib>
 
@@ -832,9 +833,9 @@ void Card::setContent(const String& t, std::vector<Block> b)
     layout.createLayout(as, 520.f);
     resized(); repaint();
 }
-void Card::addButton(const String& text, std::function<void()> fn, bool primary)
+void Card::addButton(const String& text, std::function<void()> fn, bool primary, const String& tip)
 {
-    auto b = std::make_unique<juce::TextButton>(text); b->setToggleState(primary, juce::dontSendNotification); b->onClick = std::move(fn);
+    auto b = std::make_unique<juce::TextButton>(text); b->setToggleState(primary, juce::dontSendNotification); b->onClick = std::move(fn); if (tip.isNotEmpty()) b->getProperties().set("tip", tip);
     addAndMakeVisible(*b); buttons.push_back(std::move(b)); resized();
 }
 void Card::addInput(const String& initial)
@@ -851,7 +852,9 @@ void Card::addToggleRow(const String& text, bool initial, std::function<void(boo
 }
 void Card::resized()
 {
-    const int W = 560, lh = (int) std::ceil(layout.getHeight());
+    int need = 36;   // the buttons may need a wider card than the text
+    for (auto& b : buttons) need += juce::jmax(80, (int) strW(uiFont(13.f, true), b->getButtonText()) + 30) + 8;
+    const int W = juce::jmax(560, need), lh = (int) std::ceil(layout.getHeight());
     const int H = 56 + lh + (int) rows.size() * 40 + (input ? 44 : 0) + 64;
     box = Rectangle<int>(W, H).withCentre(getLocalBounds().getCentre());
     int y = box.getY() + 56 + lh;
@@ -1307,6 +1310,8 @@ void ClawpressorEditor::showAbout()
         { B::P, "A four band compressor with a limiter in every band, a master limiter and a pattern gain. Made to make dance music dense and punchy without squashing it." },
         { B::H, "Support" }, { B::P, "If it helps your music, a coffee on Ko-fi keeps new plugins coming." } });
     c->addButton("Support Studio 87 on Ko-fi", [] { juce::URL("https://ko-fi.com/studio87").launchInDefaultBrowser(); });
+    c->addButton(studio87link::buttonText(), [] { studio87link::openUpdater("Clawpressor-vst"); }, false, String(studio87link::buttonText()) + "\n" + studio87link::tipText());
     c->addButton("GitHub", [] { juce::URL("https://github.com/SpeakingColors/Clawpressor-vst").launchInDefaultBrowser(); });
     c->addButton("Close", [this] { if (card) card->onClose(); }, true); showCard(std::move(c));
+    applyTips();   // the About button bubbles follow the Info bubbles setting
 }

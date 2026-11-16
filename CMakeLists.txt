@@ -25,6 +25,8 @@ add_test(NAME dsp COMMAND claw_dsp_test)
 add_executable(claw_engine_test tests/engine_test.cpp)
 target_include_directories(claw_engine_test PRIVATE include)
 add_test(NAME engine COMMAND claw_engine_test)
+add_executable(claw_link_test tests/test_updater_link.cpp)
+add_test(NAME updater_link COMMAND claw_link_test)
 
 target_sources(Clawpressor PRIVATE src/PluginProcessor.cpp src/PluginEditor.cpp)
 target_include_directories(Clawpressor PRIVATE include src)
